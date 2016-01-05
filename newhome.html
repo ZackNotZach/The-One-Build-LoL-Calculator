@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="newhome.css" rel="stylesheet">
+<title>The One Build</title>
+
+</head>
+<body>
+
+<!-- ALL JAVASCRIPT GOES HERE -->
+<script type="text/javascript">
+	function on_search(e){
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code==13){
+			
+			//champion icon
+			var champname = document.getElementById('champsearch');
+			var name = champname.value;
+			var icon = document.getElementById('champicon');
+			
+			//need to grab latest patch number and insert here
+			var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+			var almost = name.concat(".png");
+			icon.src = icon_url.concat(almost);
+			
+			//splash art
+			var splash_url = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+			almost = name.concat("_0.jpg");
+			splash_url = splash_url.concat(almost);
+			document.body.style.backgroundImage = 'url("'+splash_url+'")';
+			
+			/*check if result is a 404
+			
+			var icon = document.getElementById('champicon');
+			icon.src = "Icons/nochamp.png";
+			console.log("that's not a real champ, silly goose"); */
+			
+			document.getElementById('pagetitle').innerHTML = "Nice choice. Here's "+name+"'s Base Stats.";
+			document.getElementById('paragraph').innerHTML = "To add runes, calculate gold, and create your build, use the tabs on the right side " +
+															 "of the screen. Your stats will update as you go--you can come back and view them at any time.";
+		}
+	}
+</script>
+
+<!-- ALL HTML GOES HERE -->
+<div class="transbox">
+	<div class="theonebuild"><span id=pagetitle>One Build to Rule Them All...</span></div>
+	<div class="intro"><span id=paragraph>Plan your powerspikes. Here at The One Build, you can craft your runepage,
+					   simulate your gold income, and calculate your stats for any build imaginable.
+					   Begin your experiment by searching for a champion below.</span></div>
+</div>
+
+<img id="champicon" class="champicon" src="Icons/nochamp.png"></img>
+<input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
+
+</body>
+</html>
