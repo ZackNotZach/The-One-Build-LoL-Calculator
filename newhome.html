@@ -36,10 +36,69 @@
 			icon.src = "Icons/nochamp.png";
 			console.log("that's not a real champ, silly goose"); */
 			
+			/*transition into base stats screen*/
 			document.getElementById('pagetitle').innerHTML = "Nice choice. Here's "+name+"'s Base Stats.";
 			document.getElementById('paragraph').innerHTML = "To add runes, calculate gold, and create your build, use the tabs on the right side " +
 															 "of the screen. Your stats will update as you go--you can come back and view them at any time.";
+			document.getElementById('transbar').style.visibility = 'visible';
+			
+			/*get base stats from API*/
+			setTimeout(get_base_stats(), 1);
 		}
+	}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+	function get_base_stats(){
+		var champ_name = "";
+		champ_name = $("#champsearch").val();
+		$.ajax({
+			url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=stats&api_key=59080bd8-1d31-44be-8a1e-3ecd9a372501',
+			type: 'GET',
+			dataType: 'json',
+			data:{},
+			success: function (json) {
+				var champname_nospaces = champ_name.replace(" ", "");
+				champname_nospaces = champname_nospaces.toLowerCase().trim();
+		
+				pass = json.data[champ_name].stats;
+				console.log(pass);
+		
+				var stats = {attackrange:"0",mpperlevel:"0",mp:"0",attackdamage:"0",hp:"0",hpperlevel:"0",attackdamageperlevel:"0",armor:"0",mpregenperlevel:"0",
+							 hpregen:"0",critperlevel:"0",spellblockperlevel:"0",mpregen:"0",
+							 attackspeedperlevel:"0",spellblock:"0",movespeed:"0",attackspeedoffset:"0",crit:"0",hpregenperlevel:"0",armorperlevel:"0"};
+		
+				for(var property in stats)
+				{
+					if(stats.hasOwnProperty(property))
+					{
+						stats[property]=json.data[champ_name].stats[property];
+					}
+				}
+		
+				//i know this looks janky, and it is, so i have no excuse
+				//document.getElementById("mpperlevel").value=stats.mpperlevel;
+				document.getElementById("mana").innerHTML=stats.mp;
+				document.getElementById("attackdamage").innerHTML=stats.attackdamage;
+				document.getElementById("health").innerHTML=stats.hp;
+				//document.getElementById("hpperlevel").value=stats.hpperlevel;
+				//document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
+				document.getElementById("armor").innerHTML=stats.armor;
+				//document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
+				document.getElementById("healthregen").innerHTML=stats.hpregen;
+				//document.getElementById("critperlevel").value=stats.critperlevel;
+				//document.getElementById("mrperlevel").value=stats.spellblockperlevel;
+				document.getElementById("manaregen").innerHTML=stats.mpregen;
+				//document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
+				document.getElementById("magicresist").innerHTML=stats.spellblock;
+				document.getElementById("movespeed").innerHTML=stats.movespeed;
+				document.getElementById("criticalchance").innerHTML=stats.crit;
+				//document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
+				//document.getElementById("armorperlevel").value=stats.armorperlevel;
+				//document.getElementById("attackspeedoffset").value=stats.attackspeedoffset;
+			}
+		})
 	}
 </script>
 
@@ -49,6 +108,137 @@
 	<div class="intro"><span id=paragraph>Plan your powerspikes. Here at The One Build, you can craft your runepage,
 					   simulate your gold income, and calculate your stats for any build imaginable.
 					   Begin your experiment by searching for a champion below.</span></div>
+</div>
+
+<!-- maybe there's a better way to do this -->
+<div class="transbar" id="transbar">
+	<div class="statstable">
+		<table>
+			<tr>
+				<td>
+					<h1><span>Health</span></h1>
+				</td>
+				<td>
+					<h2><span id="health">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Mana</span></h1>
+				</td>
+				<td>
+					<h2><span id="mana">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Health+</span></h1>
+				</td>
+				<td>
+					<h2><span id="healthregen">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Mana+</span></h1>
+				</td>
+				<td>
+					<h2><span id="manaregen">0000</span></h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h1><span>AD</span></h1>
+				</td>
+				<td>
+					<h2><span id="attackdamage">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>AS</span></h1>
+				</td>
+				<td>
+					<h2><span id="attackspeed">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Crit</span></h1>
+				</td>
+				<td>
+					<h2><span id="criticalchance">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>AP</span></h1>
+				</td>
+				<td>
+					<h2><span id="abilitypower">0000</span></h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h1><span>MPen</span></h1>
+				</td>
+				<td>
+					<h2><span id="magicpen">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>%MPen</span></h1>
+				</td>
+				<td>
+					<h2><span id="percentmagicpen">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>ArPen</span></h1>
+				</td>
+				<td>
+					<h2><span id="armorpen">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>%ArPen</span></h1>
+				</td>
+				<td>
+					<h2><span id="percentarmorpen">0000</span></h2>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h1><span>CDR</span></h1>
+				</td>
+				<td>
+					<h2><span id="cooldownreduction">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Movespeed</span></h1>
+				</td>
+				<td>
+					<h2><span id="movespeed">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>MResist</span></h1>
+				</td>
+				<td>
+					<h2><span id="magicresist">0000</span></h2>
+				</td>
+				<td>
+					<h1><span>Armor</span></h1>
+				</td>
+				<td>
+					<h2><span id="armor">0000</span></h2>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="navigation">
+		<table>
+			<tr>
+				<h1><span id="nav1">Abilities</span></h1>
+			</tr>
+			<tr>
+				<h1><span id="nav2">Runes</span></h1>
+			</tr>
+			<tr>
+				<h1><span id="nav3">Masteries</span></h1>
+			</tr>
+			<tr>
+				<h1><span id="nav4">Game Data</span></h1>
+			</tr>
+			<tr>
+				<h1><span id="nav5">Shop</span></h1>
+			</tr>
+		</table>
+	</div>
 </div>
 
 <img id="champicon" class="champicon" src="Icons/nochamp.png"></img>
