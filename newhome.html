@@ -40,7 +40,9 @@
 			document.getElementById('pagetitle').innerHTML = "Nice choice. Here's "+name+"'s Base Stats.";
 			document.getElementById('paragraph').innerHTML = "To add runes, calculate gold, and create your build, use the tabs on the right side " +
 															 "of the screen. Your stats will update as you go--you can come back and view them at any time.";
-			document.getElementById('transbar').style.visibility = 'visible';
+			document.getElementById('transbarleft').style.visibility = 'visible';
+			document.getElementById('transbarmid').style.visibility = 'visible';
+			document.getElementById('transbarright').style.visibility = 'visible';
 			
 			/*get base stats from API*/
 			setTimeout(get_base_stats(), 1);
@@ -104,144 +106,65 @@
 
 <!-- ALL HTML GOES HERE -->
 <div class="transbox">
-	<div class="theonebuild"><span id=pagetitle>One Build to Rule Them All...</span></div>
-	<div class="intro"><span id=paragraph>Plan your powerspikes. Here at The One Build, you can craft your runepage,
+	<div class="theonebuild"><span id="pagetitle">One Build to Rule Them All...</span></div>
+	<div class="intro"><span id="paragraph"  style="">Plan your powerspikes. Here at The One Build, you can craft your runepage,
 					   simulate your gold income, and calculate your stats for any build imaginable.
 					   Begin your experiment by searching for a champion below.</span></div>
 </div>
 
 <!-- maybe there's a better way to do this -->
-<div class="transbar" id="transbar">
-	<div class="statstable">
-		<table>
-			<tr>
-				<td>
-					<h1><span>Health</span></h1>
-				</td>
-				<td>
-					<h2><span id="health">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Mana</span></h1>
-				</td>
-				<td>
-					<h2><span id="mana">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Health+</span></h1>
-				</td>
-				<td>
-					<h2><span id="healthregen">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Mana+</span></h1>
-				</td>
-				<td>
-					<h2><span id="manaregen">0000</span></h2>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h1><span>AD</span></h1>
-				</td>
-				<td>
-					<h2><span id="attackdamage">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>AS</span></h1>
-				</td>
-				<td>
-					<h2><span id="attackspeed">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Crit</span></h1>
-				</td>
-				<td>
-					<h2><span id="criticalchance">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>AP</span></h1>
-				</td>
-				<td>
-					<h2><span id="abilitypower">0000</span></h2>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h1><span>MPen</span></h1>
-				</td>
-				<td>
-					<h2><span id="magicpen">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>%MPen</span></h1>
-				</td>
-				<td>
-					<h2><span id="percentmagicpen">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>ArPen</span></h1>
-				</td>
-				<td>
-					<h2><span id="armorpen">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>%ArPen</span></h1>
-				</td>
-				<td>
-					<h2><span id="percentarmorpen">0000</span></h2>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h1><span>CDR</span></h1>
-				</td>
-				<td>
-					<h2><span id="cooldownreduction">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Movespeed</span></h1>
-				</td>
-				<td>
-					<h2><span id="movespeed">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>MResist</span></h1>
-				</td>
-				<td>
-					<h2><span id="magicresist">0000</span></h2>
-				</td>
-				<td>
-					<h1><span>Armor</span></h1>
-				</td>
-				<td>
-					<h2><span id="armor">0000</span></h2>
-				</td>
-			</tr>
-		</table>
+<div class="row">
+	<div class="col-1 statlist">
+		<div class="transbarleft"  id="transbarleft">
+			<div><img id="champicon" style="padding: 3px;" src="Icons/nochamp.png"></img></div>
+			<ul>
+			  <li>Health - <span id="health">0000</span></li>
+			  <li>Mana - <span id="mana">0000</span></li>
+			  <li>Health Regen - <span id="healthregen">0000</span></li>
+			  <li>Mana Regen - <span id="manaregen">0000</span></li>
+			  <li>AD - <span id="attackdamage">0000</span></li>
+			  <li>AS - <span id="attackspeed">0000</span></li>
+			  <li>Crit - <span id="criticalchance">0000</span></li>
+			  <li>AP - <span id="abilitypower">0000</span></li>
+			  <li>MPen - <span id="magicpen">0000</span></li>
+			  <li>%Mpen - <span id="percentmagicpen">0000</span></li>
+			  <li>ArPen - <span id="armorpen">0000</span></li>
+			  <li>%ArPen - <span id="percentarmorpen">0000</span></li>
+			  <li>CDR - <span id="cooldownreduction">0000</span></li>
+			  <li>Movespeed - <span id="movespeed">0000</span></li>
+			  <li>MResist - <span id="magicresist">0000</span></li>
+			  <li>Armor - <span id="armor">0000</span></li>
+			</ul>
+		</div>
 	</div>
-	<div class="navigation">
-		<table>
-			<tr>
-				<h1><span id="nav1">Abilities</span></h1>
-			</tr>
-			<tr>
-				<h1><span id="nav2">Runes</span></h1>
-			</tr>
-			<tr>
-				<h1><span id="nav3">Masteries</span></h1>
-			</tr>
-			<tr>
-				<h1><span id="nav4">Game Data</span></h1>
-			</tr>
-			<tr>
-				<h1><span id="nav5">Shop</span></h1>
-			</tr>
-		</table>
+	
+	<div class="col-2 stuff">
+		<div class="transbarmid" id="transbarmid">
+			<ul>
+			  <li>I HAVE NO IDEA WHY PUTTING A LIST IN HERE MAKE THE WHOLE BOX MOVE DOWN LIKE 10PX WTF</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="col-3 navbar">
+		<div class="transbarright" id="transbarright">
+			<ul>
+			  <li><span id="nav1">Abilities</span></li>
+			  <li><span id="nav2">Runes</span></li>
+			  <li><span id="nav3">Masteries</span></li>
+			  <li><span id="nav4">Game Data</span></li>
+			  <li><span id="nav5">Shop</span></li>
+			</ul>
+		</div>
 	</div>
 </div>
 
-<img id="champicon" class="champicon" src="Icons/nochamp.png"></img>
+
+<div class="transbarnav" id="transbar">
+	
+</div>
+
+<img class="champicon" src="Icons/nochamp.png"></img>
 <input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
 
 </body>

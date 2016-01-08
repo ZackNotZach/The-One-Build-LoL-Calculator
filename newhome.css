@@ -9,6 +9,23 @@
 	src: url('Fonts/Roboto-Light.ttf');
 }
 
+/*gridview*/
+* {
+    box-sizing: border-box;
+}
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+.col-1 {width: 15%;}
+.col-2 {width: 70%;}
+.col-3 {width: 15%;}
+
 /*Text Box Styling*/
 input{
 	color: #ffffff;
@@ -80,23 +97,18 @@ input.champsearch{
 	left: 755px;
 }
 
-/*Middle Bar*/
+/*Middle Bar
 div.transbar{
 	position: absolute;
-	bottom: 240px;
-	width: 100%;
-	height: 500px;
+	bottom: 0px;
+	width: 250px;
+	height: 86.4%;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
 }
-
+*/
 /*Stats*/
-div.statstable{
-	position: absolute;
-	bottom: 50px;
-	left: 50px;
-}
 
 h1{
 	font-family: Sorry Not Sorry;
@@ -120,9 +132,51 @@ h2{
 div.navigation{
 	position: absolute;
 	right: 50px;
-	bottom: 40px;
+	bottom: 400px;
 }
 
+
+.statlist ul{
+	list-style-type: none;
+	text-align: left;
+	font-family:  Roboto;
+	color: #ffffff;
+}
+
+.transbarleft{
+	height: 500px;
+	background-color: #000000;
+	opacity: 0.8;
+	visibility: hidden;
+}
+.transbarmid{
+	height: 500px;
+	background-color: #000000;
+	opacity: 0.8;
+	visibility: hidden;
+}
+.transbarright{
+	height: 500px;
+	background-color: #000000;
+	opacity: 0.8;
+	visibility: hidden;
+}
+
+.navbar li{
+	list-style-type: none;
+	text-align: center;
+	font-family: Sorry Not Sorry;
+	font-size: 32px;
+	color: #ffffff;
+	padding:10px;
+}
+
+.stuff ul{
+	list-style-type: none;
+	text-align: center;
+	font-family:  Roboto;
+	color: #ffffff;
+}
 
 
 
