@@ -43,6 +43,7 @@
 			document.getElementById('transbarleft').style.visibility = 'visible';
 			document.getElementById('transbarmid').style.visibility = 'visible';
 			document.getElementById('transbarright').style.visibility = 'visible';
+			document.getElementById('searchicon').src = '';
 			
 			/*get base stats from API*/
 			setTimeout(get_base_stats(), 1);
@@ -116,7 +117,7 @@
 <div class="row">
 	<div class="col-1 statlist">
 		<div class="transbarleft"  id="transbarleft">
-			<div><img id="champicon" style="padding: 3px;" src="Icons/nochamp.png"></img></div>
+			<div><img id="champicon" style="padding-left: 45px; padding-top: 5px;" src="Icons/nochamp.png"></img></div>
 			<ul>
 			  <li>Health - <span id="health">0000</span></li>
 			  <li>Mana - <span id="mana">0000</span></li>
@@ -148,12 +149,12 @@
 	
 	<div class="col-3 navbar">
 		<div class="transbarright" id="transbarright">
-			<ul>
-			  <li><span id="nav1">Abilities</span></li>
-			  <li><span id="nav2">Runes</span></li>
-			  <li><span id="nav3">Masteries</span></li>
-			  <li><span id="nav4">Game Data</span></li>
-			  <li><span id="nav5">Shop</span></li>
+			<ul >
+			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav1">Abilities</span></li>
+			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li>
+			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav3">Masteries</span></li>
+			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li>
+			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li>
 			</ul>
 		</div>
 	</div>
@@ -164,7 +165,7 @@
 	
 </div>
 
-<img class="champicon" src="Icons/nochamp.png"></img>
+<img class="champicon" id="searchicon" src="Icons/nochamp.png"></img>
 <input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
 
 </body>

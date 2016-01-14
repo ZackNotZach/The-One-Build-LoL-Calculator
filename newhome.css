@@ -22,9 +22,9 @@
     float: left;
     padding: 15px;
 }
-.col-1 {width: 15%;}
-.col-2 {width: 70%;}
-.col-3 {width: 15%;}
+.col-1 {width: 13%;}
+.col-2 {width: 75%;}
+.col-3 {width: 11%;}
 
 /*Text Box Styling*/
 input{
@@ -137,38 +137,40 @@ div.navigation{
 
 
 .statlist ul{
+	position: relative;
+	right: 20px;
 	list-style-type: none;
-	text-align: left;
+	text-align: center;
 	font-family:  Roboto;
 	color: #ffffff;
 }
 
 .transbarleft{
-	height: 500px;
+	height: 465px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
 }
 .transbarmid{
-	height: 500px;
+	height: 700px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
 }
 .transbarright{
-	height: 500px;
+	height: 290px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
 }
 
-.navbar li{
+.navbar ul{
 	list-style-type: none;
 	text-align: center;
 	font-family: Sorry Not Sorry;
 	font-size: 32px;
 	color: #ffffff;
-	padding:10px;
+	padding:0px;
 }
 
 .stuff ul{
