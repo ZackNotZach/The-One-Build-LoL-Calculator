@@ -152,7 +152,7 @@ div.navigation{
 	visibility: hidden;
 }
 .transbarmid{
-	height: 700px;
+	height: 450px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
@@ -180,7 +180,23 @@ div.navigation{
 	color: #ffffff;
 }
 
+.transbarmid_row2{
+	height: 250px;
+	background-color: black;
+	opacity: 0.8;
+	visibility: hidden;
+}
 
+.ability_list{
+	display: inline;
+	padding-right:35px;
+	padding-left:60px;
+	margin: 0px;
+	list-style-type: none;
+	color: white;
+	font-size: 30px;
+	font: roboto;
+}
 
 
 
