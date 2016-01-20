@@ -79,6 +79,7 @@ div.transbox{
 	height: 130px;
 	background-color: #000000;
 	opacity: 0.8;
+	padding: 5px;
 }
 
 /*Champion Search*/
@@ -156,6 +157,8 @@ div.navigation{
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
+	border-right: 3px solid white;
+	border-left: 3px solid white;
 }
 .transbarright{
 	height: 290px;
@@ -178,6 +181,7 @@ div.navigation{
 	text-align: center;
 	font-family:  Roboto;
 	color: #ffffff;
+
 }
 
 .transbarmid_row2{
