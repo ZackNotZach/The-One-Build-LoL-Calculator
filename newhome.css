@@ -9,7 +9,7 @@
 	src: url('Fonts/Roboto-Light.ttf');
 }
 
-/*gridview*/
+/*Grid View*/
 * {
     box-sizing: border-box;
 }
@@ -22,12 +22,74 @@
     float: left;
     padding: 15px;
 }
-.col-1 {width: 13%;}
+.col-1 {width: 12%;}
 .col-2 {width: 75%;}
-.col-3 {width: 11%;}
+.col-3 {width: 13%;}
 
 /*Text Box Styling*/
-input{
+input:focus{
+	outline: none;
+	border-color: #ffffff;
+	box-shadow: 0 0 5px #ffffff;
+}
+
+/*Background*/
+body{
+	background-image: url(Pictures/baronblurred.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: 0px;
+}
+
+/*Top Bar*/
+div.theonebuild{
+	color: #ffffff;
+	font-family: Sorry Not Sorry;
+	font-size: 64px;
+	text-align: center;
+}
+
+div.intro{
+	color: #ffffff;
+	font-family: Roboto;
+	font-size: 16px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 550px;
+}
+
+div.transbox{
+	width: 100%;
+	height: 140px;
+	background-color: #000000;
+	opacity: 0.8;
+	padding: 5px;
+}
+
+/*Champion Search*/
+
+/* this is the intiial search icon/bar */
+img.champicon{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 285px;
+	border-width: 3px;
+	border-style: solid;
+	border-color: #000000;
+	opacity: 0.9;
+	visibility: visible;
+}
+
+input.champsearch{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 400px;
+	padding: 100px;
+	visibility: visible;
 	color: #ffffff;
 	background-color: #000000;
 	font-family: Roboto;
@@ -39,83 +101,26 @@ input{
 	border: 0px;
 }
 
-input:focus{
-	outline: none;
-	border-color: #ffffff;
-	box-shadow: 0 0 5px #ffffff;
-}
-
-/*Background*/
-body
-{
-	background-image: url(Pictures/baron.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	margin: 0px;
-}
-
-/*Top Bar*/
-div.theonebuild{
-	color: #ffffff;
-	font-family: Sorry Not Sorry;
-	font-size: 64px;
-	text-align: center;
-	opacity: 1;
-}
-
-div.intro{
-	color: #ffffff;
-	font-family: Roboto;
-	font-size: 16px;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: 550px;
-	opacity: 1;
-}
-
-div.transbox{
-	width: 100%;
-	height: 130px;
-	background-color: #000000;
-	opacity: 0.8;
-	padding: 5px;
-}
-
-/*Champion Search*/
-img.champicon{
-	position: absolute;
-	bottom: 70px;
-	left: 844px;
-	border-width: 3px;
-	border-style: solid;
-	border-color: #000000;
-}
-
-input.champsearch{
-	position: absolute;
-	bottom: 20px;
-	left: 755px;
-}
-
-/*Middle Bar
-div.transbar{
-	position: absolute;
-	bottom: 0px;
-	width: 250px;
-	height: 86.4%;
-	background-color: #000000;
-	opacity: 0.8;
+/* this is for subsequent searches */
+input.champsearch2{
+	margin-top: 14px;
+	margin-left: 19px;
 	visibility: hidden;
+	color: #ffffff;
+	background-color: #111111;
+	font-family: Roboto;
+	font-size: 20px;
+	text-align: left;
+	width: 117px;
+	opacity: 0.8;
+	border: 0px;
 }
-*/
-/*Stats*/
 
+
+/*Stats*/
 h1{
 	font-family: Sorry Not Sorry;
-	font-size: 32;
 	color: #ffffff;
-	padding: 10px;
 }
 
 h1:hover{
@@ -127,6 +132,40 @@ h2{
 	font-size: 16;
 	color: #ffffff;
 	padding: 10px;
+}
+
+/* Abilities */
+div.abilitybar{
+	margin: 0 auto;
+	width: 450px;
+}
+
+div.abilitybar img{
+	margin-top: 19px;
+	margin-left: 20px;
+}
+
+div.abilityname{
+	color: #ffffff;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: Sorry Not Sorry;
+	font-size: 48px;
+	text-align: center;
+	margin-top: 15px;
+}
+
+div.abilitytext{
+	color: #ffffff;
+	font-family: Roboto;
+	font-size: 24px;
+	width: 550px;
+	margin-top: 15px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 /*Navigation*/
@@ -141,65 +180,46 @@ div.navigation{
 	position: relative;
 	right: 20px;
 	list-style-type: none;
-	text-align: center;
+	text-align: left;
 	font-family:  Roboto;
 	color: #ffffff;
 }
 
-.transbarleft{
+.statlist li{
+	margin-bottom: 4px;
+}
+
+/*.transbarleft{
 	height: 465px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
-}
+}*/
+
 .transbarmid{
-	height: 450px;
+	height: 600px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
-	border-right: 3px solid white;
-	border-left: 3px solid white;
+	margin-top: -400px;
+	/*border-right: 3px solid white;
+	border-left: 3px solid white;*/
 }
-.transbarright{
+
+/*.transbarright{
 	height: 290px;
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
-}
+}*/
 
 .navbar ul{
 	list-style-type: none;
-	text-align: center;
+	text-align: right;
 	font-family: Sorry Not Sorry;
-	font-size: 32px;
+	font-size: 16px;
 	color: #ffffff;
-	padding:0px;
-}
-
-.stuff ul{
-	list-style-type: none;
-	text-align: center;
-	font-family:  Roboto;
-	color: #ffffff;
-
-}
-
-.transbarmid_row2{
-	height: 250px;
-	background-color: black;
-	opacity: 0.8;
-	visibility: hidden;
-}
-
-.ability_list{
-	display: inline;
-	padding-right:35px;
-	padding-left:60px;
-	margin: 0px;
-	list-style-type: none;
-	color: white;
-	font-size: 30px;
-	font: roboto;
+	margin-top: 200px;
 }
 
 

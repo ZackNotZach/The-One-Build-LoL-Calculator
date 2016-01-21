@@ -14,19 +14,19 @@
 
 <!-- ALL HTML GOES HERE -->
 <div class="transbox">
-	<div class="theonebuild"><span id="pagetitle">One Build to Rule Them All...</span></div>
-	<div class="intro"><span id="paragraph"  style="">Plan your powerspikes. Here at The One Build, you can craft your runepage,
+	<div class="theonebuild" id="theonebuild"><span id="pagetitle">One Build to Rule Them All...</span></div>
+	<div class="intro" id="intro"><span id="paragraph"  style="">Plan your powerspikes. Here at The One Build, you can craft your runepage,
 					   simulate your gold income, and calculate your stats for any build imaginable.
 					   Begin your experiment by searching for a champion below.</span></div>
 </div>
 
-<!-- maybe there's a better way to do this -->
+<input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
 
-
-<div class="row" style="background-color: #000000; opacity: 0.8; position: relative; top: 15px; left: 18px; width: 98%;">
-	<div class="col-1 statlist">
-		<div class="transbarleft"  id="transbarleft">
-			<div><img id="champicon" style="padding-left: 45px; padding-top: 5px;" src="Icons/nochamp.png"></img></div>
+<div class="row">
+	<div class="transbarmid" id="transbarmid">
+		<div class="col-1 statlist">
+		<div><img id="champicon" style="padding-left: 15px; padding-top: 12px;" src="Icons/nochamp.png"></img></div>
+		<input id="champsearch2" class="champsearch2" type="text" onkeypress="on_search(event)" value="cocaine"></input>
 			<ul>
 			  <li>Health - <span id="health">0000</span></li>
 			  <li>Mana - <span id="mana">0000</span></li>
@@ -46,49 +46,29 @@
 			  <li>Armor - <span id="armor">0000</span></li>
 			</ul>
 		</div>
-	</div>
-	
-	<div class="col-2 stuff">
-		<div class="transbarmid" id="transbarmid">
+		
+		<div class="col-2">
+			<div class="abilitybar">
+				<img id="passiveicon" src="Icons/Whimsy.png" onclick="changePassive()"></img>
+				<img id="abilityoneicon" src="Icons/Whimsy.png" onclick="changeAbilityOne()"></img>
+				<img id="abilitytwoicon" src="Icons/Whimsy.png" onclick="changeAbilityTwo()"></img>
+				<img id="abilitythreeicon" src="Icons/Whimsy.png" onclick="changeAbilityThree()"></img>
+				<img id="abilityfouricon" src="Icons/Whimsy.png" onclick="changeAbilityFour()"></img>
+			</div>
+			
+			<div class="abilityname"><span id="abilityname"></span></div>
+			<div class="abilitytext"><span id="abilitytext"></span></div>
+		</div>
+		
+		<div class="col-3 navbar">
 			<ul>
-			  <li>I HAVE NO IDEA WHY PUTTING A LIST IN HERE MAKE THE WHOLE BOX MOVE DOWN LIKE 10PX WTF</li>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li></h1>
 			</ul>
 		</div>
 	</div>
-	
-	<div class="col-3 navbar">
-		<div class="transbarright" id="transbarright">
-			<ul >
-			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li>
-			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li>
-			  <li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li>
-			</ul>
-		</div>
-	</div>
 </div>
-
-<div class="row">
-	<div class="col-1"></div>
-	<div class="col-2">
-		<div class="transbarmid_row2" id="transbarmid_row2">
-			<ul>
-				<li class="ability_list">Passive</li>
-				<li class="ability_list">Q Ability One</li>
-				<li class="ability_list">W Ability Two</li>
-				<li class="ability_list">E Ability Three</li>
-				<li class="ability_list">R Ability Four</li>
-			</ul>	
-		</div>
-	</div>
-</div>
-
-
-<div class="transbarnav" id="transbar">
-	
-</div>
-
-<img class="champicon" id="searchicon" src="Icons/nochamp.png"></img>
-<input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
 
 </body>
 </html>
