@@ -27,15 +27,17 @@ function on_search(e){
 			
 			var icon = document.getElementById('champicon');
 			icon.src = "Icons/nochamp.png";
-			console.log("that's not a real champ, silly goose"); */
+			console.log("that's not a real champ, silly goose");  "+name+"'s*/
 			
 			/*transition into base stats screen*/
-			document.getElementById('pagetitle').innerHTML = "Nice choice. Here's "+name+"'s Base Stats.";
-			document.getElementById('paragraph').innerHTML = "To add runes, calculate gold, and create your build, use the tabs on the right side " +
-															 "of the screen. Your stats will update as you go--you can come back and view them at any time.";
+			document.getElementById('welcometitle').innerHTML = "Nice choice. Now let's get down to business.";
+			document.getElementById('welcometext').innerHTML = ""+name+"'s base stats are on the left and their abilities are below. To start planning your build, we'll need some information. Use the tabs on the right to add runes, scores, and items. Your stats and scalings will update as you go.";
+			
 			document.getElementById('champsearch').style.visibility = 'hidden';
 			document.getElementById('champsearch2').style.visibility = 'visible';
 			document.getElementById('transbarmid').style.visibility = 'visible';
+			document.getElementById('transbox').style.visibility = 'hidden';
+			document.getElementById('abilitybox').style.visibility = 'visible';
 			
 			/*get base stats from API*/
 			setTimeout(get_base_stats(), 1);

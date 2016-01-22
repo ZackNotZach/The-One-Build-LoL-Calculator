@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 <!-- ALL HTML GOES HERE -->
-<div class="transbox">
+<div class="transbox" id="transbox">
 	<div class="theonebuild" id="theonebuild"><span id="pagetitle">One Build to Rule Them All...</span></div>
 	<div class="intro" id="intro"><span id="paragraph"  style="">Plan your powerspikes. Here at The One Build, you can craft your runepage,
 					   simulate your gold income, and calculate your stats for any build imaginable.
@@ -48,6 +48,27 @@
 		</div>
 		
 		<div class="col-2">
+			<div class="welcometitle"><span id="welcometitle">Nice choice. Here's your champ's Base Stats.</span></div>
+			<div class="welcometext"><span id="welcometext">To add runes, calculate gold, and create your build, use the tabs on the right side of the screen.
+															Your stats will update as you go--you can come back and view them at any time.</span></div>
+			<div><img id="borderl" style="position: relative; bottom: 100px;" src="Icons/testborder.png"></img>
+				<img id="borderr" style="position: relative; bottom: 100px; left: 100%" src="Icons/testborder.png"></img></div>
+		</div>
+		
+		<div class="col-3 navbar">
+			<ul>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li></h1>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-1"></div>
+	<div class="col-2">
+		<div class="abilitybox" id="abilitybox">
 			<div class="abilitybar">
 				<img id="passiveicon" src="Icons/Whimsy.png" onclick="changePassive()"></img>
 				<img id="abilityoneicon" src="Icons/Whimsy.png" onclick="changeAbilityOne()"></img>
@@ -59,15 +80,8 @@
 			<div class="abilityname"><span id="abilityname"></span></div>
 			<div class="abilitytext"><span id="abilitytext"></span></div>
 		</div>
-		
-		<div class="col-3 navbar">
-			<ul>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li></h1>
-			</ul>
-		</div>
 	</div>
+	<div class="col-3"></div>
 </div>
 
 </body>

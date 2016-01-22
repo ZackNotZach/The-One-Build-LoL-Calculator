@@ -35,7 +35,7 @@ input:focus{
 
 /*Background*/
 body{
-	background-image: url(Pictures/baronblurred.jpg);
+	background-image: url(Pictures/baron.jpg);
 	background-size: 100%;
 	background-repeat: no-repeat;
 	margin: 0px;
@@ -66,6 +66,31 @@ div.transbox{
 	background-color: #000000;
 	opacity: 0.8;
 	padding: 5px;
+	visibility: visible;
+}
+
+/*Middle Bar Welcome*/
+
+div.welcometitle{
+	color: #ffffff;
+	font-family: Sorry Not Sorry;
+	font-size: 64px;
+	text-align: center;
+	position: relative;
+	top: 70px;
+}
+
+div.welcometext{
+	color: #ffffff;
+	font-family: Roboto;
+	font-size: 24px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 650px;
+	position: relative;
+	top: 85px;
 }
 
 /*Champion Search*/
@@ -159,13 +184,22 @@ div.abilityname{
 div.abilitytext{
 	color: #ffffff;
 	font-family: Roboto;
-	font-size: 24px;
-	width: 550px;
+	font-size: 20px;
+	width: 700px;
 	margin-top: 15px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+}
+
+div.abilitybox{
+	width: 100%;
+	height: 300px;
+	background-color: #000000;
+	opacity: 0.8;
+	padding: 5px;
+	visibility: hidden;
 }
 
 /*Navigation*/
@@ -201,7 +235,7 @@ div.navigation{
 	background-color: #000000;
 	opacity: 0.8;
 	visibility: hidden;
-	margin-top: -400px;
+	margin-top: -550px;
 	/*border-right: 3px solid white;
 	border-left: 3px solid white;*/
 }
