@@ -176,7 +176,7 @@ div.abilityname{
 	margin-left: auto;
 	margin-right: auto;
 	font-family: Sorry Not Sorry;
-	font-size: 48px;
+	font-size: 35px;
 	text-align: center;
 	margin-top: 15px;
 }
@@ -191,7 +191,9 @@ div.abilitytext{
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
-	padding: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
 }
 
 div.abilitybox{

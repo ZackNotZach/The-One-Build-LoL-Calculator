@@ -513,8 +513,8 @@ function changeAbilityThree(){
 								if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
 									//str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
 
-									setTimeout(getstats, 1000);
-									var scaling=document.getElementById("ability power").innerHTML;
+									//setTimeout(getstats, 1000);
+									var scaling=document.getElementById("abilitypower").innerHTML;
 									scaling=scaling*json.data[champ_name].spells[2].vars[g].coeff;
 									console.log(scaling);
 
@@ -615,8 +615,8 @@ function changeAbilityFour(){
 								if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
 									//str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
 
-									setTimeout(getstats, 1000);
-									var scaling=document.getElementById("ability power").innerHTML;
+									//setTimeout(getstats, 1000);
+									var scaling=document.getElementById("abilitypower").innerHTML;
 									scaling=scaling*json.data[champ_name].spells[3].vars[g].coeff;
 									console.log(scaling);
 
