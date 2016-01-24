@@ -1,4 +1,8 @@
 
+
+
+
+
 function on_search(e){
 		var code = (e.keyCode ? e.keyCode : e.which);
 		if(code==13){
@@ -636,4 +640,14 @@ function changeAbilityFour(){
 			}
 		});
 	}	
+}
+
+/*display the shop*/
+function display_shop(){
+	document.getElementById('shop').style.display = 'block';
+	document.getElementById('filterlist').style.display = 'block';
+	document.getElementById('welcometitle').style.display = 'none';
+	document.getElementById('welcometext').style.display = 'none';
+	/*document.getElementById('runes').style.display = 'none';
+	document.getElementById('gamedata').style.display = 'none';*/
 }

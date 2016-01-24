@@ -48,18 +48,136 @@
 		</div>
 		
 		<div class="col-2">
+		<div class="middle">
 			<div class="welcometitle"><span id="welcometitle">Nice choice. Here's your champ's Base Stats.</span></div>
 			<div class="welcometext"><span id="welcometext">To add runes, calculate gold, and create your build, use the tabs on the right side of the screen.
 															Your stats will update as you go--you can come back and view them at any time.</span></div>
-			<div><img id="borderl" style="position: relative; bottom: 100px;" src="Icons/testborder.png"></img>
-				<img id="borderr" style="position: relative; bottom: 100px; left: 100%" src="Icons/testborder.png"></img></div>
+			<div class="filterlist" id="filterlist">
+				<h3>Filter</h3>
+				Defense
+				<ul class="filter">
+					<li><input onclick="shop_filter()" id="health_filter" type="checkbox">Health</li>
+					<li><input onclick="shop_filter()" id="MR_filter" type="checkbox">Magic Resist</li>
+					<li><input onclick="shop_filter()" id="armor_filter" type="checkbox">Armor</li>
+				</ul>	
+				Attack
+				<ul class="filter">
+					<li><input onclick="shop_filter()" id="AD_filter" type="checkbox">Attack Damage</li>
+					<li><input onclick="shop_filter()" id="AS_filter" type="checkbox">Attack Speed</li>
+					<li><input onclick="shop_filter()" id="crit_filter" type="checkbox">Critical Chance</li>
+					<li><input onclick="shop_filter()" id="lifesteal_filter" type="checkbox">Lifesteal</li>
+				</ul>
+				Magic
+				<ul class="filter">
+					<li><input onclick="shop_filter()" id="AP_filter" type="checkbox">Ability Power</li>
+					<li><input onclick="shop_filter()" id="CDR_filter" type="checkbox">Cooldown Reduction</li>
+					<li><input onclick="shop_filter()" id="mana_filter" type="checkbox">Mana</li>
+					<li><input onclick="shop_filter()" id="mana_regen_filter" type="checkbox">Mana Regen</li>
+				</ul>
+				Movement
+				<ul class="filter">
+					<li><input onclick="shop_filter()" id="MS_filter"type="checkbox">Movespeed</li>
+				</ul>
+			
+			</div>
+			<div class="shop" id="shop">
+				<img class="shopicon" id="shop_icon0" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon1" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon2" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon3" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon4" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon5" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon6" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon7" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon8" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon9" src="icons/EmptyIcon_Item.png">
+				
+				<img class="shopicon" id="shop_icon10" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon11" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon12" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon13" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon14" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon15" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon16" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon17" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon18" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon19" src="icons/EmptyIcon_Item.png">
+				
+				<img class="shopicon" id="shop_icon20" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon21" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon22" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon23" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon24" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon25" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon26" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon27" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon28" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon29" src="icons/EmptyIcon_Item.png">
+				
+				<img class="shopicon" id="shop_icon30" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon31" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon32" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon33" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon34" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon35" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon36" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon37" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon38" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon39" src="icons/EmptyIcon_Item.png">	
+
+				<img class="shopicon" id="shop_icon40" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon41" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon42" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon43" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon44" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon45" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon46" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon47" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon48" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon49" src="icons/EmptyIcon_Item.png">
+				
+				<img class="shopicon" id="shop_icon50" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon51" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon52" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon53" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon54" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon55" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon56" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon57" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon58" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon59" src="icons/EmptyIcon_Item.png">	
+
+				<img class="shopicon" id="shop_icon60" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon61" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon62" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon63" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon64" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon65" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon66" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon67" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon68" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon69" src="icons/EmptyIcon_Item.png">	
+
+				<img class="shopicon" id="shop_icon70" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon71" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon72" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon73" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon74" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon75" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon76" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon77" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon78" src="icons/EmptyIcon_Item.png">
+				<img class="shopicon" id="shop_icon79" src="icons/EmptyIcon_Item.png">
+							
+			</div>
+		</div>
 		</div>
 		
 		<div class="col-3 navbar">
 			<ul>
 			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
 			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;" onclick="display_shop()"><span id="nav5">Shop</span></li></h1>
 			</ul>
 		</div>
 	</div>
