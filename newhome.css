@@ -69,13 +69,14 @@ div.transbox{
 	visibility: visible;
 }
 
-/*Middle Bar*/
-div.middle{
+/*Dividers*/
+div.divider{
 	border-left: 3px solid white;
 	border-right: 3px solid white;
 	height: 500px;
 	position: relative;
-	top: 25px;
+	top: 15px;
+	pointer-events: none;
 }
 
 /*Middle Bar Welcome*/
@@ -88,6 +89,7 @@ div.welcometitle{
 	position: relative;
 	top: 70px;
 	display: block;
+	margin-top: -500px;
 }
 
 div.welcometext{
@@ -109,15 +111,16 @@ div.shop{
 	display: none;
 	color: white;
 	width: 680px;
-	float:right;
+	float: right;
 	padding: 15px;
+	margin-top: -580px;
 }
 
 div.filterlist{
 	color: white;
 	display: none;
 	width: 230px;
-
+	margin-top: -25px;
 	padding: 15px;
 	font-family: Roboto;
 	list-style-type: none;
