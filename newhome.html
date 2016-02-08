@@ -170,12 +170,48 @@
 				<img class="shopicon" id="shop_icon79" src="icons/EmptyIcon_Item.png"> -->
 							
 			</div>
+			
+			<div class="gamedata" id="gamedata">
+				<ul>
+					<li style="padding-top: 10px;"><span id="nav2">Kills</span></li>
+					<input id="kills" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Assists</span></li>
+					<input id="assists" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Minion Kills</span></li>
+					<input id="minionkills" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Dragons</span></li>
+					<input id="dragons" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Barons</span></li>
+					<input id="barons" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+				</ul>
+			</div>
+			
+			<div class="gamedata2" id="gamedata2">
+				<ul>
+					<li style="padding-top: 10px;"><span id="nav2">Rift Heralds</span></li>
+					<input id="riftheralds" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Game Time</span></li>
+					<input id="gametime" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Towers</span></li>
+					<input id="towers" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<li style="padding-top: 10px;"><span id="nav2">Jungle Clears</span></li>
+					<input id="jungleclears" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+				</ul>
+			</div>
+			
+			<div class="datadescription" id="datadescription">
+				<div id="datatitle" class="datatitle">Lots of Numbers</div>
+				<div id="datadesc" class="datadesc">This is a bunch of words. This bunch of words is meant to inform the user of the purpose of the data they're entering
+													while also filling up some awkward white space. This bunch of words will change depending on which input box is
+													currently focused (not yet though). Maybe we could have something like this on every page?</div>
+			</div>
+			
 		</div>
 		
 		<div class="col-3 navbar">
 			<ul>
 			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;" onclick="display_gamedata()"><span id="nav4">Game Data</span></li></h1>
 			  <h1><li style="padding-bottom: 10px; padding-top: 10px;" onclick="display_shop()"><span id="nav5">Shop</span></li></h1>
 			</ul>
 		</div>

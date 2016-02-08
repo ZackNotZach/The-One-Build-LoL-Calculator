@@ -648,6 +648,24 @@ function display_shop(){
 	document.getElementById('filterlist').style.display = 'block';
 	document.getElementById('welcometitle').style.display = 'none';
 	document.getElementById('welcometext').style.display = 'none';
-	/*document.getElementById('runes').style.display = 'none';
-	document.getElementById('gamedata').style.display = 'none';*/
+	/*document.getElementById('runes').style.display = 'none';*/
+	document.getElementById('gamedata').style.display = 'none';
+	document.getElementById('gamedata2').style.display = 'none';
+	document.getElementById('datadescription').style.display = 'none';
 }
+
+function display_gamedata(){
+	document.getElementById('shop').style.display = 'none';
+	document.getElementById('filterlist').style.display = 'none';
+	document.getElementById('welcometitle').style.display = 'none';
+	document.getElementById('welcometext').style.display = 'none';
+	/*document.getElementById('runes').style.display = 'none';*/
+	document.getElementById('gamedata').style.display = 'block';
+	document.getElementById('gamedata2').style.display = 'block';
+	document.getElementById('datadescription').style.display = 'block';
+}
+
+
+
+
+
