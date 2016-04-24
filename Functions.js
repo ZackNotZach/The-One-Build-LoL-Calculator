@@ -1151,7 +1151,7 @@
 
             
         
-        if(src_temp != "icons/EmptyIcon_Item.png"){
+        if(src_temp != "/icons/EmptyIcon_Item.png"){
             $.ajax({
                 url:  item_url,
                 type: 'GET',
@@ -1160,7 +1160,7 @@
 
                 },
                 success: function (json) {	
-                    console.log(json.gold.total);
+                    //console.log(json.gold.total);
                     stats.innerHTML = "Gold: " + json.gold.total + "      |      " + json.sanitizedDescription;
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
