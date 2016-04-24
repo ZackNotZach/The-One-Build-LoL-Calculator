@@ -22,8 +22,8 @@
     float: left;
     padding: 15px;
 }
-.col-1 {width: 12%;}
-.col-2 {width: 75%;}
+.col-1 {width: 13%;}
+.col-2 {width: 74%;}
 .col-3 {width: 13%;}
 
 /*Text Box Styling*/
@@ -36,9 +36,12 @@ input:focus{
 /*Background*/
 body{
 	background-image: url(Pictures/baron.jpg);
-	background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+	/*background-size: 100%;
 	background-repeat: no-repeat;
-	margin: 0px;
+	margin: 0px;*/
 }
 
 /*Top Bar*/
@@ -107,13 +110,30 @@ div.welcometext{
 }
 
 /* Middle bar Shop*/
+
+div.inventory{
+    display: none;
+    color: white;
+    width: 250px;
+    font-family: Roboto;
+    float: left;
+    overflow: hidden;
+    height: 550px;
+    position: absolute;
+    right: 850px;
+    font-size: 13.5px;
+}
+
 div.shop{
+    position: absolute;
+    top: 45px;
+    right: 175px;
 	display: none;
 	color: white;
 	width: 680px;
 	float: right;
 	padding: 15px;
-	margin-top: -580px;
+    overflow: hidden;
 }
 
 div.filterlist{
@@ -124,6 +144,8 @@ div.filterlist{
 	padding: 15px;
 	font-family: Roboto;
 	list-style-type: none;
+    float: left;
+    overflow: hidden;
 }
 
 /*Champion Search*/

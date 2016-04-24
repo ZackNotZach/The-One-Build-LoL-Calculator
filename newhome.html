@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="functions.js" type="text/javascript"></script>
+
 <link href="newhome.css" rel="stylesheet">
 <title>The One Build</title>
 
@@ -20,13 +20,13 @@
 					   Begin your experiment by searching for a champion below.</span></div>
 </div>
 
-<input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." onkeypress="on_search(event)"></input>
+<input id="champsearch" class="champsearch" type="text" placeholder="Search for a Champion..." ></input>
 
 <div class="row">
 	<div class="transbarmid" id="transbarmid">
 		<div class="col-1 statlist">
 		<div><img id="champicon" style="padding-left: 15px; padding-top: 12px;" src="Icons/nochamp.png"></img></div>
-		<input id="champsearch2" class="champsearch2" type="text" onkeypress="on_search(event)" value="cocaine"></input>
+		<input id="champsearch2" class="champsearch2" type="text" value="cocaine"></input>
 			<ul>
 			  <li>Health - <span id="health">0000</span></li>
 			  <li>Mana - <span id="mana">0000</span></li>
@@ -56,30 +56,42 @@
 				<h1>Item Filter</h1>
 				Defense
 				<ul class="filter">
-					<li><input onclick="shop_filter()" id="health_filter" type="checkbox">Health</li>
-					<li><input onclick="shop_filter()" id="MR_filter" type="checkbox">Magic Resist</li>
-					<li><input onclick="shop_filter()" id="armor_filter" type="checkbox">Armor</li>
+					<li><input class="filter" id="health_filter" type="checkbox">Health</li>
+					<li><input class="filter" id="MR_filter" type="checkbox">Magic Resist</li>
+					<li><input class="filter" id="armor_filter" type="checkbox">Armor</li>
 				</ul>	
 				Attack
 				<ul class="filter">
-					<li><input onclick="shop_filter()" id="AD_filter" type="checkbox">Attack Damage</li>
-					<li><input onclick="shop_filter()" id="AS_filter" type="checkbox">Attack Speed</li>
-					<li><input onclick="shop_filter()" id="crit_filter" type="checkbox">Critical Chance</li>
-					<li><input onclick="shop_filter()" id="lifesteal_filter" type="checkbox">Lifesteal</li>
+					<li><input class="filter" id="AD_filter" type="checkbox">Attack Damage</li>
+					<li><input class="filter" id="AS_filter" type="checkbox">Attack Speed</li>
+					<li><input class="filter" id="crit_filter" type="checkbox">Critical Chance</li>
+					<li><input class="filter" id="lifesteal_filter" type="checkbox">Lifesteal</li>
 				</ul>
 				Magic
 				<ul class="filter">
-					<li><input onclick="shop_filter()" id="AP_filter" type="checkbox">Ability Power</li>
-					<li><input onclick="shop_filter()" id="CDR_filter" type="checkbox">Cooldown Reduction</li>
-					<li><input onclick="shop_filter()" id="mana_filter" type="checkbox">Mana</li>
-					<li><input onclick="shop_filter()" id="mana_regen_filter" type="checkbox">Mana Regen</li>
+					<li><input class="filter" id="AP_filter" type="checkbox">Ability Power</li>
+					<li><input class="filter" id="CDR_filter" type="checkbox">Cooldown Reduction</li>
+					<li><input class="filter" id="mana_filter" type="checkbox">Mana</li>
+					<li><input class="filter" id="mana_regen_filter" type="checkbox">Mana Regen</li>
 				</ul>
 				Movement
 				<ul class="filter">
-					<li><input onclick="shop_filter()" id="MS_filter"type="checkbox">Movespeed</li>
+					<li><input class="filter" id="MS_filter"type="checkbox">Movespeed</li>
 				</ul>
 			
 			</div>
+            <div class="inventory" id="inventory">
+                <h1>Inventory</h1>
+                <img class="inventoryicon" id="inventory_item0" src="icons/EmptyIcon_Item.png">
+                <img class="inventoryicon" id="inventory_item1" src="icons/EmptyIcon_Item.png">
+                <img class="inventoryicon" id="inventory_item2" src="icons/EmptyIcon_Item.png">
+                <img class="inventoryicon" id="inventory_item3" src="icons/EmptyIcon_Item.png">
+                <img class="inventoryicon" id="inventory_item4" src="icons/EmptyIcon_Item.png">
+                <img class="inventoryicon" id="inventory_item5" src="icons/EmptyIcon_Item.png">
+                <h1>Item Stats</h1>
+                <p id="hoverinfo"><p>
+            </div>
+
 			<div class="shop" id="shop">
 				<img class="shopicon" id="shop_icon0" src="icons/EmptyIcon_Item.png">
 				<img class="shopicon" id="shop_icon1" src="icons/EmptyIcon_Item.png">
@@ -160,42 +172,33 @@
 
 				<img class="shopicon" id="shop_icon70" src="icons/EmptyIcon_Item.png">
 				<img class="shopicon" id="shop_icon71" src="icons/EmptyIcon_Item.png">
-				<!--<img class="shopicon" id="shop_icon72" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon73" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon74" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon75" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon76" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon77" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon78" src="icons/EmptyIcon_Item.png">
-				<img class="shopicon" id="shop_icon79" src="icons/EmptyIcon_Item.png"> -->
-							
 			</div>
-			
+
 			<div class="gamedata" id="gamedata">
 				<ul>
 					<li style="padding-top: 10px;"><span id="nav2">Kills</span></li>
-					<input id="kills" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="kills" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Assists</span></li>
-					<input id="assists" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="assists" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Minion Kills</span></li>
-					<input id="minionkills" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="minionkills" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Dragons</span></li>
-					<input id="dragons" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="dragons" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Barons</span></li>
-					<input id="barons" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="barons" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 				</ul>
 			</div>
 			
 			<div class="gamedata2" id="gamedata2">
 				<ul>
 					<li style="padding-top: 10px;"><span id="nav2">Rift Heralds</span></li>
-					<input id="riftheralds" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="riftheralds" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Game Time</span></li>
-					<input id="gametime" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="gametime" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Towers</span></li>
-					<input id="towers" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="towers" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 					<li style="padding-top: 10px;"><span id="nav2">Jungle Clears</span></li>
-					<input id="jungleclears" class="gamedatainput" type="text" placeholder="Enter a number..." onkeypress="on_search(event)"></input>
+					<input id="jungleclears" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
 				</ul>
 			</div>
 			
@@ -211,8 +214,8 @@
 		<div class="col-3 navbar">
 			<ul>
 			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav2">Runes</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;" onclick="display_gamedata()"><span id="nav4">Game Data</span></li></h1>
-			  <h1><li style="padding-bottom: 10px; padding-top: 10px;" onclick="display_shop()"><span id="nav5">Shop</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav4">Game Data</span></li></h1>
+			  <h1><li style="padding-bottom: 10px; padding-top: 10px;"><span id="nav5">Shop</span></li></h1>
 			</ul>
 		</div>
 	</div>
@@ -223,11 +226,11 @@
 	<div class="col-2">
 		<div class="abilitybox" id="abilitybox">
 			<div class="abilitybar">
-				<img id="passiveicon" src="" onclick="changePassive()"></img>
-				<img id="abilityoneicon" src="" onclick="changeAbilityOne()"></img>
-				<img id="abilitytwoicon" src="" onclick="changeAbilityTwo()"></img>
-				<img id="abilitythreeicon" src="" onclick="changeAbilityThree()"></img>
-				<img id="abilityfouricon" src="" onclick="changeAbilityFour()"></img>
+				<img id="passiveicon" src=""></img>
+				<img id="abilityoneicon" src=""></img>
+				<img id="abilitytwoicon" src=""></img>
+				<img id="abilitythreeicon" src=""></img>
+				<img id="abilityfouricon" src=""></img>
 			</div>
 			
 			<div class="abilityname"><span id="abilityname"></span></div>
@@ -236,6 +239,13 @@
 	</div>
 	<div class="col-3"></div>
 </div>
-
+<!--<script>
+    $(document).ready(function(){
+        var shop = document.getElementsByClassName('shopicon');
+        for(var i = 0; i < shop.length; i++){
+            shop[i].addEventListener('click', add_inventory(), false);
+        }
+    }-->
+<script src="functions.js" type="text/javascript"></script>
 </body>
 </html>
