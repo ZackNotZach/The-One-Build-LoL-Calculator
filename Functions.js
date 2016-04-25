@@ -30,6 +30,12 @@
     document.getElementById('abilitytwoicon').addEventListener('click', changeAbilityTwo);
     document.getElementById('abilitythreeicon').addEventListener('click', changeAbilityThree);
     document.getElementById('abilityfouricon').addEventListener('click', changeAbilityFour);
+    
+    document.body.addEventListener('click', function(event) { test(event); });
+
+    function test(e){
+        document.body.style.backgroundImage = "url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg)";
+    }
 
     function on_search(e){
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -53,7 +59,8 @@
             var splash_url = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
             almost = name.concat("_0.jpg");
             splash_url = splash_url.concat(almost);
-            document.body.style.backgroundImage = 'url("'+splash_url+'")';
+            console.log(splash_url);
+            document.getElementById('bgimg').src = splash_url;
             
             /*check if result is a 404
             
