@@ -1,8 +1,32 @@
 
 (function() {
 
+    var champion = window.localStorage.getItem('champname');
+    console.log(champion);
+    document.getElementById('champsearch2').value = champion;
+    
+    var name = champion;
+    var icon = document.getElementById('champicon');
+    
+    //need to grab latest patch number and insert here
+    var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+    var almost = name.concat(".png");
+    icon.src = icon_url.concat(almost);
+    
+    //splash art
+    var splash_url = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+    almost = name.concat("_0.jpg");
+    splash_url = splash_url.concat(almost);
+    document.getElementById('bgimg').src = splash_url;
+
+    //get all the information from the api and display it
+    get_base_stats();
+    change_passive();
+    change_abilities();
+    changePassive();
+    initializeShop();
+
     //Event Handlers
-    document.getElementById('champsearch').addEventListener('keypress', function(event) { on_search(event); });
     document.getElementById('champsearch2').addEventListener('keypress', function(event) { on_search(event); });
     var filters = document.getElementsByClassName('filter');
     for(var i = 0; i < filters.length; i++){
@@ -33,6 +57,84 @@
     
     document.body.addEventListener('click', function(event) { test(event); });
 
+    function initializeShop(){
+        $.ajax({
+            url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+
+            },
+            success: function (json) {
+                var shop_array = [];
+                var item_info = [];
+                
+                for(var key in json.data){
+                    if(json.data.hasOwnProperty(key)){	
+                        shop_array.push(key);
+                        item_info.push(json.data[key]);
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].maps["11"] == false){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].consumed == true){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].group == "BootsDistortion"){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].group == "BootsCaptain"){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].group == "BootsAlacrity"){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                    for(k=0; k < shop_array.length; k++){
+                        if(item_info[k].group == "BootsFuror"){
+                            shop_array.splice(k,1);
+                            item_info.splice(k,1);
+                        }
+                    }
+                }
+                j=0;
+                for(i=0; i<72; i++){
+                    var num = i.toString();
+                    var shop_icon_string = "shop_icon"
+                    var shop_id = shop_icon_string.concat(num);
+                    var item_url = "http://ddragon.leagueoflegends.com/cdn/6.10.1/img/item/";
+                    var temp = shop_array[j];
+                    
+                    var mid_shop_array = temp.concat(".png");
+                    var shop_source = document.getElementById(shop_id);
+
+                    if(i < shop_array.length){
+                        shop_source.src = item_url.concat(mid_shop_array);
+                    } else {
+                        shop_source.src = "icons/EmptyIcon_Item.png";
+                    }
+                    j++;
+                }
+                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
     function test(e){
         document.body.style.backgroundImage = "url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg)";
     }
@@ -70,11 +172,6 @@
             document.getElementById('welcometitle').innerHTML = "Nice choice. Now let's get down to business.";
             document.getElementById('welcometext').innerHTML = ""+name+"'s base stats are on the left and their abilities are below. To start planning your build, we'll need some information. Use the tabs on the right to add runes, scores, and items. Your stats and scalings will update as you go.";
             
-            document.getElementById('champsearch').style.visibility = 'hidden';
-            document.getElementById('champsearch2').style.visibility = 'visible';
-            document.getElementById('transbarmid').style.visibility = 'visible';
-            document.getElementById('transbox').style.visibility = 'hidden';
-            document.getElementById('abilitybox').style.visibility = 'visible';
             
             /*get base stats from API*/
             setTimeout(get_base_stats(), 1);
@@ -83,7 +180,7 @@
             setTimeout(changePassive(), 1);
             
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -171,7 +268,7 @@
             }
             console.log(champ_name);
             $.ajax({
-                url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=stats&api_key=59080bd8-1d31-44be-8a1e-3ecd9a372501',
+                url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=stats&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data:{},
@@ -226,7 +323,7 @@
         if(champ_name !== ""){
         
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -269,7 +366,7 @@
         if(champ_name !== ""){
         
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -324,7 +421,7 @@
         }
         if(champ_name !== ""){	
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {},
@@ -354,7 +451,7 @@
         if(champ_name !== ""){
             
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {},
@@ -454,7 +551,7 @@
         if(champ_name !== ""){
         
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -556,7 +653,7 @@
         if(champ_name !== ""){
         
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -659,7 +756,7 @@
         if(champ_name !== ""){
         
             $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -783,7 +880,7 @@
 
     function shop_filter(){
         $.ajax({
-            url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+            url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
             type: 'GET',
             dataType: 'json',
             data: {
@@ -1025,7 +1122,7 @@
                         var num = i.toString();
                         var shop_icon_string = "shop_icon"
                         var shop_id = shop_icon_string.concat(num);
-                        var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
+                        var item_url = "http://ddragon.leagueoflegends.com/cdn/6.10.1/img/item/";
                         var temp = shop_array_modified[j];
                         var mid_shop_array = temp.concat(".png");
                         
@@ -1105,7 +1202,7 @@
         item_id = item_id.substr(item_id.length - 8);
         item_id = item_id.slice(0,4);
         
-        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
     }
     
     function update_gamedata(){
@@ -1120,7 +1217,7 @@
         remove_id = remove_id.substr(remove_id.length - 8);
         remove_id = remove_id.slice(0,4);
         
-        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
 
         <!-- will be used to send item information to the database -->
         $.ajax({
@@ -1149,7 +1246,7 @@
         item_id = item_id.substr(item_id.length - 8);
         item_id = item_id.slice(0,4);
         
-        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
         
         
         var src_temp = image_source.substr(image_source.length - 25, image_source.length);
