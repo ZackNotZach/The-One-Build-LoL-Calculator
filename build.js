@@ -36,7 +36,7 @@
     for(var i = 0; i < gameinputs.length; i++){
         gameinputs[i].addEventListener('keypress', update_gamedata);
     }
-    document.getElementById('nav2').addEventListener('click', display_runes);
+    document.getElementById('nav3').addEventListener('click', display_runes);
     document.getElementById('nav4').addEventListener('click', display_gamedata);
     document.getElementById('nav5').addEventListener('click', display_shop);
     var shop_icons = document.getElementsByClassName('shopicon');
@@ -48,6 +48,11 @@
     for(var i = 0; i < inventory_icons.length; i++){
         inventory_icons[i].addEventListener('click', remove_inventory);
         inventory_icons[i].addEventListener('mouseover', item_stats);
+    }
+    var rune_handlers = document.getElementsByClassName('runeselect');
+    for(var i = 0; i < rune_handlers.length; i++){
+        rune_handlers[i].id = 'runeselect' + i;
+        rune_handlers[i].addEventListener('click', highlight_rune);
     }
     document.getElementById('passiveicon').addEventListener('click', changePassive);
     document.getElementById('abilityoneicon').addEventListener('click', changeAbilityOne);
@@ -852,6 +857,17 @@
 
     /*display the shop*/
     function display_runes(){
+        console.log('hey');
+        document.getElementById('inventory').style.display = 'none';
+        document.getElementById('shop').style.display = 'none';
+        document.getElementById('filterlist').style.display = 'none';
+        document.getElementById('welcometitle').style.display = 'none';
+        document.getElementById('welcometext').style.display = 'none';
+        document.getElementById('runes').style.display = 'inline-block';
+        document.getElementById('gamedata').style.display = 'none';
+        document.getElementById('gamedata2').style.display = 'none';
+        document.getElementById('datadescription').style.display = 'none';
+        document.getElementById('datadescription').style.display = 'none';
     }
     
     function display_shop(){
@@ -860,7 +876,7 @@
         document.getElementById('filterlist').style.display = 'inline-block';
         document.getElementById('welcometitle').style.display = 'none';
         document.getElementById('welcometext').style.display = 'none';
-        /*document.getElementById('runes').style.display = 'none';*/
+        document.getElementById('runes').style.display = 'none';
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
@@ -872,7 +888,7 @@
         document.getElementById('filterlist').style.display = 'none';
         document.getElementById('welcometitle').style.display = 'none';
         document.getElementById('welcometext').style.display = 'none';
-        /*document.getElementById('runes').style.display = 'none';*/
+        document.getElementById('runes').style.display = 'none';
         document.getElementById('gamedata').style.display = 'block';
         document.getElementById('gamedata2').style.display = 'block';
         document.getElementById('datadescription').style.display = 'block';
@@ -1218,22 +1234,6 @@
         remove_id = remove_id.slice(0,4);
         
         item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
-
-        <!-- will be used to send item information to the database -->
-        $.ajax({
-            url:  item_url,
-            type: 'GET',
-            dataType: 'json',
-            data: {
-
-            },
-            success: function (json) {	
-                //console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("error getting Summoner data!");
-            }
-        });
     }
 
     function item_stats(){
@@ -1271,6 +1271,16 @@
             });
         }else{
             stats.innerHTML = "Empty Item Slot"
+        }
+    }
+    
+    function highlight_rune(){
+        var selected_rune = document.getElementById(this.id);
+        console.log(selected_rune.style.border);
+        if(selected_rune.style.border !== '1px solid rgb(242, 242, 242)'){
+            selected_rune.style.border = '1px solid #f2f2f2';
+        } else {
+            selected_rune.style.border = '1px solid #666699';
         }
     }
 })();

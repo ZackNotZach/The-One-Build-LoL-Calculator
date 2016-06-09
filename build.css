@@ -38,10 +38,7 @@ input:focus{
 div.divider{
 	border-left: 3px solid white;
 	border-right: 3px solid white;
-	height: 500px;
-	position: relative;
-	top: 15px;
-	pointer-events: none;
+    height: 550px;
 }
 
 /*Middle Bar Welcome*/
@@ -51,24 +48,14 @@ div.welcometitle{
 	font-family: Sorry Not Sorry;
 	font-size: 64px;
 	text-align: center;
-	position: relative;
-	top: 70px;
 	display: block;
-	margin-top: -500px;
 }
 
 div.welcometext{
 	color: #ffffff;
 	font-family: Roboto;
 	font-size: 24px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
 	text-align: center;
-	width: 650px;
-	position: relative;
-	top: 85px;
-	display: block;
 }
 
 /* Middle bar Shop*/
@@ -81,15 +68,10 @@ div.inventory{
     float: left;
     overflow: hidden;
     height: 550px;
-    position: absolute;
-    right: 850px;
     font-size: 13.5px;
 }
 
 div.shop{
-    position: absolute;
-    top: 45px;
-    right: 175px;
 	display: none;
 	color: white;
 	width: 680px;
@@ -102,12 +84,60 @@ div.filterlist{
 	color: white;
 	display: none;
 	width: 230px;
-	margin-top: -25px;
 	padding: 15px;
 	font-family: Roboto;
 	list-style-type: none;
     float: left;
     overflow: hidden;
+}
+
+/* Runes CSS */
+.msgq{
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-bottom: 25px;
+    font-size: 25px;
+}
+#runes{
+    display: none;
+    color: #ffffff;
+	font-family: Sorry Not Sorry;
+    height: 550px;
+}
+
+#marks{
+    float: left;
+}
+
+#seals{
+    float: left;
+}
+#glyphs{
+    float: left;
+}
+#quints{
+    float: left;
+    padding-right: 10px;
+}
+#quints2{
+    float: right;
+    padding-left: 10px;
+}
+
+.numRunes ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 3px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    cursor: default;
+
+}
+.numRunes li{
+    display: inline;
+    border: 1px solid #666699;
+    padding: 2px;
+    background-color: #262626;
 }
 
 /*Champion Search*/
