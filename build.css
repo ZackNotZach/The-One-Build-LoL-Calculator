@@ -69,13 +69,15 @@ div.inventory{
     overflow: hidden;
     height: 550px;
     font-size: 13.5px;
+    padding-left: 20px;
+    padding-top: 30px;
 }
 
 div.shop{
 	display: none;
 	color: white;
 	width: 680px;
-	float: right;
+	float: left;
 	padding: 15px;
     overflow: hidden;
 }
@@ -304,7 +306,7 @@ input.gamedatainput{
 	border: 0px;
 }
 
-#goldvalue{
+.goldvalue{
     display: none;
     color: white;
     font-family: Sorry Not Sorry;
