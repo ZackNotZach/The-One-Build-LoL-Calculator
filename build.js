@@ -62,7 +62,17 @@
     
     document.body.addEventListener('click', function(event) { test(event); });
     
-    //Game Data Variables
+    document.getElementById('kills').addEventListener('keyup', sum_gold);
+    document.getElementById('assists').addEventListener('keyup', sum_gold);
+    document.getElementById('minionkills').addEventListener('keyup', sum_gold);
+    document.getElementById('barons').addEventListener('keyup', sum_gold);
+    document.getElementById('riftheralds').addEventListener('keyup', sum_gold);
+    document.getElementById('gametime').addEventListener('keyup', sum_gold);
+    document.getElementById('towers').addEventListener('keyup', sum_gold);
+    document.getElementById('jungleclears').addEventListener('keyup', sum_gold);
+    console.log(document.getElementById('kills').value);
+    
+    //Game Data Variables 59.4 44.4
     var kill_worth = 300;
     var assist_worth = 125; //50% of kill gold split among everyone who got an assist
     var melee_worth = 19.8;
@@ -70,9 +80,33 @@
     var siege_worth = 40;
     var baron_worth = 300;
     var riftherald_worth = 50;
-    var turret_worth = 125;
-    var clear_worth = 370; // does not include red or blue
-    var red_blue_worth = 98; 
+    var tower_worth = 125;
+    var jungleclear_worth = 402; // does not include red or blue
+    var avgminion_worth = 20.54;
+    var start_gold = 500;
+    var gold_generation = 20.4 / 10; // 20.4 per 10 seconds
+    
+    function sum_gold(){
+        var temp = document.getElementById('kills').value;
+        var num_kills = document.getElementById('kills').value;
+        var num_assist = document.getElementById('assists').value;
+        var num_minions = document.getElementById('minionkills').value;
+        var num_barons = document.getElementById('barons').value;
+        var num_riftheralds = document.getElementById('riftheralds').value;
+        var gametime = document.getElementById('gametime').value;
+        var num_towers = document.getElementById('towers').value;
+        var num_jungleclears = document.getElementById('jungleclears').value;
+        
+        //convert gametime to seconds before here -----------
+        var total_gold;
+        total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (gold_generation * gametime) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
+        console.log(total_gold);
+        
+        var html_gold = document.getElementsByClassName('goldamt');
+        for(var i = 0; i < html_gold.length; i++){
+            html_gold[i].innerHTML = total_gold;
+        }
+    }
 
     function initializeShop(){
         $.ajax({
@@ -881,7 +915,8 @@
         document.getElementById('gamedatabuffs').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
-        document.getElementById('goldvalue').style.display = 'none';
+        document.getElementById('gold1').style.display = 'none';
+        document.getElementById('gold2').style.display = 'none';
         
     }
     
@@ -896,7 +931,8 @@
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('gamedatabuffs').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
-        document.getElementById('goldvalue').style.display = 'none';
+        document.getElementById('gold1').style.display = 'inline-block';
+        document.getElementById('gold2').style.display = 'none';
     }
 
     function display_gamedata(){
@@ -910,7 +946,8 @@
         document.getElementById('gamedata2').style.display = 'inline-block';
         document.getElementById('gamedatabuffs').style.display = 'inline-block';
         document.getElementById('datadescription').style.display = 'inline-block';
-        document.getElementById('goldvalue').style.display = 'inline-block';
+        document.getElementById('gold1').style.display = 'none';
+        document.getElementById('gold2').style.display = 'inline-block';
     }
 
     function shop_filter(){
@@ -1184,7 +1221,7 @@
     }
 
     function add_inventory(){ 
-        console.log('i got called!');
+        var item_bought = false;
         var shop_image = document.getElementById(this.id);
         var clicked_image = shop_image.src;
         var iven_zero = document.getElementById('inventory_item0');
@@ -1211,21 +1248,27 @@
         var empty_item = "/icons/EmptyIcon_Item.png";
         if(src_temp_zero == empty_item){
             iven_zero.src = clicked_image;
+            item_bought = true;
         }else{
             if(src_temp_one == empty_item){
                 iven_one.src = clicked_image;
+                item_bought = true;
             }else{
                 if(src_temp_two == empty_item){
                     iven_two.src = clicked_image;
+                    item_bought = true;
                 }else{
                     if(src_temp_three == empty_item){
                         iven_three.src = clicked_image;
+                        item_bought = true;
                     }else{
                         if(src_temp_four == empty_item){
                             iven_four.src = clicked_image;
+                            item_bought = true;
                         }else{
                             if(src_temp_five == empty_item){
                                 iven_five.src = clicked_image;
+                                item_bought = true;
                             }
                         }
                     }
@@ -1237,7 +1280,36 @@
         item_id = item_id.substr(item_id.length - 8);
         item_id = item_id.slice(0,4);
         
+        var gold_temp = [];
+        var gold_totals = document.getElementsByClassName('goldamt');
+        for(var i = 0; i < gold_totals.length; i++){
+            gold_temp[i] = gold_totals[i].innerHTML;
+            gold_temp[i] = parseInt(gold_temp[i], 10);
+        }
+        
         item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
+        
+        if(item_bought === true){
+            $.ajax({
+                url:  item_url,
+                type: 'GET',
+                dataType: 'json',
+                data: {
+
+                },
+                success: function (json) {	
+                    console.log(json.gold.total);
+                    console.log(gold_temp);
+                    for(var i = 0; i < gold_totals.length; i++){
+                        gold_totals[i].innerHTML = gold_temp[i] - json.gold.total;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error getting Item data!");
+                }
+            });
+        }else{
+        }
     }
     
     function update_gamedata(){

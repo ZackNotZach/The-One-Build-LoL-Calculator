@@ -49,6 +49,23 @@
                 <div class="welcometitle"><span id="welcometitle">Nice choice. Here's your champ's Base Stats.</span></div>
                 <div class="welcometext"><span id="welcometext">To add runes, calculate gold, and create your build, use the tabs on the right side of the screen.
                                                                 Your stats will update as you go--you can come back and view them at any time.</span></div>
+                
+                <div class="goldvalue"  id="gold1">
+                    Gold:<span class="goldamt"> 500 </span>
+                </div>
+                
+                <div class="inventory" id="inventory">
+                    <h1>Inventory</h1>
+                    <img class="inventoryicon" id="inventory_item0" src="icons/EmptyIcon_Item.png">
+                    <img class="inventoryicon" id="inventory_item1" src="icons/EmptyIcon_Item.png">
+                    <img class="inventoryicon" id="inventory_item2" src="icons/EmptyIcon_Item.png">
+                    <img class="inventoryicon" id="inventory_item3" src="icons/EmptyIcon_Item.png">
+                    <img class="inventoryicon" id="inventory_item4" src="icons/EmptyIcon_Item.png">
+                    <img class="inventoryicon" id="inventory_item5" src="icons/EmptyIcon_Item.png">
+                    <h1>Item Stats</h1>
+                    <p id="hoverinfo"><p>
+                </div>
+                
                 <div class="filterlist" id="filterlist">
                     <h1>Item Filter</h1>
                     Defense
@@ -76,17 +93,6 @@
                         <li><input class="filter" id="MS_filter"type="checkbox">Movespeed</li>
                     </ul>
                 
-                </div>
-                <div class="inventory" id="inventory">
-                    <h1>Inventory</h1>
-                    <img class="inventoryicon" id="inventory_item0" src="icons/EmptyIcon_Item.png">
-                    <img class="inventoryicon" id="inventory_item1" src="icons/EmptyIcon_Item.png">
-                    <img class="inventoryicon" id="inventory_item2" src="icons/EmptyIcon_Item.png">
-                    <img class="inventoryicon" id="inventory_item3" src="icons/EmptyIcon_Item.png">
-                    <img class="inventoryicon" id="inventory_item4" src="icons/EmptyIcon_Item.png">
-                    <img class="inventoryicon" id="inventory_item5" src="icons/EmptyIcon_Item.png">
-                    <h1>Item Stats</h1>
-                    <p id="hoverinfo"><p>
                 </div>
 
                 <div class="shop" id="shop">
@@ -171,8 +177,8 @@
                     <img class="shopicon" id="shop_icon71" src="icons/EmptyIcon_Item.png">
                 </div>
 
-                <div id="goldvalue">
-                    Gold:<span> 0 </span>
+                <div class="goldvalue"  id="gold2">
+                    Gold:<span class="goldamt"> 500 </span>
                 </div>
                 
                 <div class="gamedata" id="gamedata">
@@ -186,7 +192,8 @@
                         <li style="padding-top: 10px;"><span id="nav2">Barons</span></li>
                         <input id="barons" class="gamedatainput" type="text" placeholder="Enter a number..."></input>
                         <li style="padding-top: 10px;"><span id="nav2">Infernal Dragons</span></li>
-                        <div class="numRunes">
+                        
+                        <div class="numRunes" style="padding-top: 10px;">
                             <ul style="font-size: 20px;">
                                 <li class="runeselect">0</li>
                                 <li class="runeselect">1</li>
@@ -194,6 +201,7 @@
                                 <li class="runeselect">3</li>
                             </ul>
                         </div>
+                        
                     </ul>
                 </div>
                 
