@@ -269,11 +269,10 @@ div.navigation{
 /* Game Data */
 div.gamedata{
 	display: none;
+    float: left;
 }
 
 div.gamedata ul{
-	margin-top: 5px;
-	margin-left: -20px;
 	list-style-type: none;
 	text-align: left;
 	font-family: Sorry Not Sorry;
@@ -283,11 +282,10 @@ div.gamedata ul{
 
 div.gamedata2{
 	display: none;
+    float: left;
 }
 
 div.gamedata2 ul{
-	margin-top: -457px;
-	margin-left: 170px;
 	list-style-type: none;
 	text-align: left;
 	font-family: Sorry Not Sorry;
@@ -296,8 +294,6 @@ div.gamedata2 ul{
 }
 
 input.gamedatainput{
-	padding-left: 2px;
-	margin-top: 14px;
 	color: #ffffff;
 	background-color: #222222;
 	font-family: Roboto;
@@ -308,8 +304,37 @@ input.gamedatainput{
 	border: 0px;
 }
 
+#goldvalue{
+    display: none;
+    color: white;
+    font-family: Sorry Not Sorry;
+    font-size: 32px;
+    float: left;
+    position: absolute;
+    padding-left: 10px;
+}
+
+#gamedatabuffs{
+    display: none;
+    color: white;
+    float: left;
+    position: absolute;
+    padding-left: 10px;
+}
+
+#gamedatabuffs ul{
+    list-style-type: none;
+	text-align: left;
+	font-family: Sorry Not Sorry;
+	font-size: 24px;
+	color: #ffffff;
+}
+
 div.datadescription{
 	display: none;
+    float: right;
+    width: 600px;
+    padding-right: 50px;
 }
 
 div.datatitle{
@@ -317,8 +342,6 @@ div.datatitle{
 	font-family: Sorry Not Sorry;
 	font-size: 64px;
 	text-align: right;
-	margin-right: 15px;
-	margin-top: -370px;
 }
 
 div.datadesc{
@@ -326,8 +349,6 @@ div.datadesc{
 	font-family: Roboto;
 	font-size: 24px;
 	text-align: right;
-	margin-left: 500px;
-	margin-right: 15px;
 }
 
 

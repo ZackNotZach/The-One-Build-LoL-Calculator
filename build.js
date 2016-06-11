@@ -61,6 +61,18 @@
     document.getElementById('abilityfouricon').addEventListener('click', changeAbilityFour);
     
     document.body.addEventListener('click', function(event) { test(event); });
+    
+    //Game Data Variables
+    var kill_worth = 300;
+    var assist_worth = 125; //50% of kill gold split among everyone who got an assist
+    var melee_worth = 19.8;
+    var caster_worth = 14.8;
+    var siege_worth = 40;
+    var baron_worth = 300;
+    var riftherald_worth = 50;
+    var turret_worth = 125;
+    var clear_worth = 370; // does not include red or blue
+    var red_blue_worth = 98; 
 
     function initializeShop(){
         $.ajax({
@@ -866,8 +878,11 @@
         document.getElementById('runes').style.display = 'inline-block';
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
+        document.getElementById('gamedatabuffs').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
+        document.getElementById('goldvalue').style.display = 'none';
+        
     }
     
     function display_shop(){
@@ -879,7 +894,9 @@
         document.getElementById('runes').style.display = 'none';
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
+        document.getElementById('gamedatabuffs').style.display = 'none';
         document.getElementById('datadescription').style.display = 'none';
+        document.getElementById('goldvalue').style.display = 'none';
     }
 
     function display_gamedata(){
@@ -889,9 +906,11 @@
         document.getElementById('welcometitle').style.display = 'none';
         document.getElementById('welcometext').style.display = 'none';
         document.getElementById('runes').style.display = 'none';
-        document.getElementById('gamedata').style.display = 'block';
-        document.getElementById('gamedata2').style.display = 'block';
-        document.getElementById('datadescription').style.display = 'block';
+        document.getElementById('gamedata').style.display = 'inline-block';
+        document.getElementById('gamedata2').style.display = 'inline-block';
+        document.getElementById('gamedatabuffs').style.display = 'inline-block';
+        document.getElementById('datadescription').style.display = 'inline-block';
+        document.getElementById('goldvalue').style.display = 'inline-block';
     }
 
     function shop_filter(){
