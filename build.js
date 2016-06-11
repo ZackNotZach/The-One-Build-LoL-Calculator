@@ -59,6 +59,10 @@
     document.getElementById('abilitytwoicon').addEventListener('click', changeAbilityTwo);
     document.getElementById('abilitythreeicon').addEventListener('click', changeAbilityThree);
     document.getElementById('abilityfouricon').addEventListener('click', changeAbilityFour);
+
+    document.getElementById('blue_sentinel').addEventListener('change', function(){update_gamedata("blue_sentinel");});
+    document.getElementById('hand_of_baron').addEventListener('change', function(){update_gamedata("hand_of_baron");});
+    document.getElementById('elder_dragon').addEventListener('change', function(){update_gamedata("elder_dragon");});
     
     document.body.addEventListener('click', function(event) { test(event); });
     
@@ -73,6 +77,15 @@
     var turret_worth = 125;
     var clear_worth = 370; // does not include red or blue
     var red_blue_worth = 98; 
+
+    var blue_sentinel_ap_percent = .15;
+    var blue_sentinel_cdr = 10;
+    var blue_sentinel_mana_regen = 1;
+
+    var baron_ad_and_ap = 40;
+
+    //flag for percentage increase
+    var blue_buff, ap_before_percentage = 0;
 
     function initializeShop(){
         $.ajax({
@@ -1240,7 +1253,50 @@
         item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
     }
     
-    function update_gamedata(){
+    function update_gamedata(dataName){
+
+        /************ handle gold addition here ****************/
+
+        if(blue_buff){
+            ap_before_percentage = Number(document.getElementById("abilitypower").innerHTML) - ap_before_percentage * Number(blue_sentinel_ap_percent);
+        } else {
+            ap_before_percentage = Number(document.getElementById("abilitypower").innerHTML);
+        }
+        //stat updates
+        if(dataName==="blue_sentinel"){
+            if(document.getElementById("blue_sentinel").checked){
+                blue_buff = true;
+                document.getElementById("manaregen").innerHTML = Number((document.getElementById("manaregen").innerHTML)) + Number(blue_sentinel_mana_regen);
+                document.getElementById("cooldownreduction").innerHTML = Number((document.getElementById("cooldownreduction").innerHTML)) + Number(blue_sentinel_cdr);
+                document.getElementById("abilitypower").innerHTML = ap_before_percentage + ap_before_percentage * Number(blue_sentinel_ap_percent);
+            }else{
+                blue_buff = false;
+                document.getElementById("manaregen").innerHTML = Number((document.getElementById("manaregen").innerHTML)) - Number(blue_sentinel_mana_regen);
+                document.getElementById("cooldownreduction").innerHTML = Number((document.getElementById("cooldownreduction").innerHTML)) - Number(blue_sentinel_cdr);
+                document.getElementById("abilitypower").innerHTML = Number(document.getElementById("abilitypower").innerHTML) - ap_before_percentage * Number(blue_sentinel_ap_percent);
+            }
+        }
+        if(dataName==="hand_of_baron"){
+            if(document.getElementById("hand_of_baron").checked){
+                document.getElementById("attackdamage").innerHTML = Number(document.getElementById("attackdamage").innerHTML) + Number(baron_ad_and_ap);
+                document.getElementById("abilitypower").innerHTML = Number(document.getElementById("abilitypower").innerHTML) + Number(baron_ad_and_ap);
+                if(blue_buff){
+                    document.getElementById("abilitypower").innerHTML = ap_before_percentage + ap_before_percentage * Number(blue_sentinel_ap_percent);
+                }
+            }else{
+                document.getElementById("attackdamage").innerHTML = Number(document.getElementById("attackdamage").innerHTML) - Number(baron_ad_and_ap);
+                document.getElementById("abilitypower").innerHTML = Number(document.getElementById("abilitypower").innerHTML) - Number(baron_ad_and_ap);
+                if(blue_buff&&ap_before_percentage === 40){
+                    document.getElementById("abilitypower").innerHTML = 0;
+                }
+            }
+        }
+        if(dataName==="elder_dragon"){
+            if(document.getElementById("elder_dragon").checked){
+                //dunno
+            }
+        }
+        console.log(ap_before_percentage);
     }
     
     function remove_inventory(){
@@ -1301,5 +1357,18 @@
         } else {
             selected_rune.style.border = '1px solid #666699';
         }
+
+        $.ajax({
+            url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/rune?runeListData=all&api_key=59080bd8-1d31-44be-8a1e-3ecd9a372501',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+            },
+            success: function (json) {
+                console.log("selected_rune.");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
     }
 })();
