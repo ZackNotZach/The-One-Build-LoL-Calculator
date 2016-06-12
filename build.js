@@ -1423,11 +1423,37 @@
     
     function highlight_rune(){
         var selected_rune = document.getElementById(this.id);
+        var rune_number = Number(selected_rune.id.replace('runeselect',''));
+        var rune_id;
+        var rune_amount = Number(selected_rune.innerHTML);
+        var remove_rune;
+
+        var health = Number(document.getElementById('health').innerHTML);
+        var mana = Number(document.getElementById('mana').innerHTML);
+        var healthregen = Number(document.getElementById('healthregen').innerHTML);
+        var manaregen = Number(document.getElementById('manaregen').innerHTML);
+        var attackdamage = Number(document.getElementById('attackdamage').innerHTML);
+        var attackspeed = Number(document.getElementById('attackspeed').innerHTML);
+        var criticalchance = Number(document.getElementById('criticalchance').innerHTML);
+        var abilitypower = Number(document.getElementById('abilitypower').innerHTML);
+        var magicpen = Number(document.getElementById('magicpen').innerHTML);
+        var percentmagicpen = Number(document.getElementById('percentmagicpen').innerHTML);
+        var armorpen = Number(document.getElementById('armorpen').innerHTML);
+        var percentarmorpen = Number(document.getElementById('percentarmorpen').innerHTML);
+        var cooldownreduction = Number(document.getElementById('cooldownreduction').innerHTML);
+        var movespeed = Number(document.getElementById('movespeed').innerHTML);
+        var magicresist = Number(document.getElementById('magicresist').innerHTML);
+        var armor = Number(document.getElementById('armor').innerHTML);
+
         console.log(selected_rune.style.border);
+        console.log(rune_amount);
+
         if(selected_rune.style.border !== '1px solid rgb(242, 242, 242)'){
             selected_rune.style.border = '1px solid #f2f2f2';
+            remove_rune = false;
         } else {
             selected_rune.style.border = '1px solid #666699';
+            remove_rune = true;
         }
 
         $.ajax({
@@ -1437,7 +1463,170 @@
             data: {
             },
             success: function (json) {
-                console.log("selected_rune.");
+                console.log(rune_number);
+                rune_number = Number(rune_number);
+                if(rune_number>=4&&rune_number<=13){
+                    rune_id = 5253;
+                } else if(rune_number>=14&&rune_number<=23){
+                    rune_id = 5245;
+                } else if(rune_number>=24&&rune_number<=33){
+                    rune_id = 5247;
+                } else if(rune_number>=34&&rune_number<=43){
+                    rune_id = 5251;
+                } else if(rune_number>=44&&rune_number<=53){
+                    rune_id = 5249;
+                } else if(rune_number>=54&&rune_number<=63){
+                    rune_id = 5402;
+                } else if(rune_number>=64&&rune_number<=73){
+                    rune_id = 5273;
+                } else if(rune_number>=74&&rune_number<=83){
+                    rune_id = 5317;
+                } else if(rune_number>=84&&rune_number<=93){
+                    rune_id = 5369;
+                } else if(rune_number>=94&&rune_number<=103){
+                    rune_id = 5315;
+                } else if(rune_number>=104&&rune_number<=113){
+                    rune_id = 5321;
+                } else if(rune_number>=114&&rune_number<=123){
+                    rune_id = 5331;
+                } else if(rune_number>=124&&rune_number<=133){
+                    rune_id = 5415;
+                } else if(rune_number>=134&&rune_number<=143){
+                    rune_id = 5297;
+                } else if(rune_number>=144&&rune_number<=153){
+                    rune_id = 5295;
+                } else if(rune_number>=154&&rune_number<=163){
+                    rune_id = 5371;
+                } else if(rune_number>=164&&rune_number<=173){
+                    rune_id = 5299;
+                } else if(rune_number>=174&&rune_number<=183){
+                    rune_id = 5289;
+                } else if(rune_number>=184&&rune_number<=187){
+                    rune_id = 5357;
+                } else if(rune_number>=188&&rune_number<=191){
+                    rune_id = 5347;
+                } else if(rune_number>=192&&rune_number<=195){
+                    rune_id = 5355;
+                } else if(rune_number>=196&&rune_number<=199){
+                    rune_id = 5367;
+                } else if(rune_number>=200&&rune_number<=203){
+                    rune_id = 5345;
+                } else if(rune_number>=204&&rune_number<=207){
+                    rune_id = 5351;
+                } else if(rune_number>=208&&rune_number<=211){
+                    rune_id = 5359;
+                } else if(rune_number>=212&&rune_number<=215){
+                    rune_id = 5361;
+                } else if(rune_number>=216&&rune_number<=219){
+                    rune_id = 5406;
+                } else if(rune_number>=220&&rune_number<=223){
+                    rune_id = 5368;
+                } else if(rune_number>=224&&rune_number<=227){
+                    rune_id = 5412;
+                } else if(rune_number>=228&&rune_number<=231){
+                    rune_id = 5365;
+                } else if(rune_number>=232&&rune_number<=235){
+                    rune_id = 5366;
+                } else if(rune_number>=236&&rune_number<=239){
+                    rune_id = 5409;
+                }
+
+                for(var key in json.data){
+                    if(json.data[key].id === rune_id){
+                        console.log(json.data[key].stats);
+                        if(json.data[key].stats.hasOwnProperty('rFlatArmorPenetrationMod')){
+                            if(!remove_rune){
+                                document.getElementById('armorpen').innerHTML = armorpen + (rune_amount*Number(json.data[key].stats.rFlatArmorPenetrationMod));
+                            } else {
+                                document.getElementById('armorpen').innerHTML = armorpen - (rune_amount*Number(json.data[key].stats.rFlatArmorPenetrationMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatPhysicalDamageMod')){
+                            if(!remove_rune){
+                                document.getElementById('attackdamage').innerHTML = attackdamage + (rune_amount*Number(json.data[key].stats.FlatPhysicalDamageMod));
+                            } else {
+                                document.getElementById('attackdamage').innerHTML = attackdamage - (rune_amount*Number(json.data[key].stats.FlatPhysicalDamageMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('PercentAttackSpeedMod')){
+                            if(!remove_rune){
+                            } else {
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatCritChanceMod')){
+                            if(!remove_rune){
+                                document.getElementById('criticalchance').innerHTML = criticalchance + (rune_amount*Number(json.data[key].stats.FlatCritChanceMod)*100);
+                            } else {
+                                document.getElementById('criticalchance').innerHTML = criticalchance - (rune_amount*Number(json.data[key].stats.FlatCritChanceMod)*100);
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('rFlatMagicPenetrationMod')){
+                            if(!remove_rune){
+                                document.getElementById('magicpen').innerHTML = magicpen + (rune_amount*Number(json.data[key].stats.rFlatMagicPenetrationMod));
+                            } else {
+                                document.getElementById('magicpen').innerHTML = magicpen - (rune_amount*Number(json.data[key].stats.rFlatMagicPenetrationMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatArmorMod')){
+                            if(!remove_rune){
+                                document.getElementById('armor').innerHTML = armor + (rune_amount*Number(json.data[key].stats.FlatArmorMod));
+                            } else {
+                                document.getElementById('armor').innerHTML = armor - (rune_amount*Number(json.data[key].stats.FlatArmorMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatHPPoolMod')){
+                            if(!remove_rune){
+                                document.getElementById('health').innerHTML = health + (rune_amount*Number(json.data[key].stats.FlatHPPoolMod));
+                            } else {
+                                document.getElementById('health').innerHTML = health - (rune_amount*Number(json.data[key].stats.FlatHPPoolMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatMPPoolMod')){
+                            if(!remove_rune){
+                                document.getElementById('mana').innerHTML = mana + (rune_amount*Number(json.data[key].stats.FlatMPPoolMod));
+                            } else {
+                                document.getElementById('mana').innerHTML = mana - (rune_amount*Number(json.data[key].stats.FlatMPPoolMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatHPRegenMod')){
+                            if(!remove_rune){
+                                document.getElementById('healthregen').innerHTML = healthregen + (rune_amount*Number(json.data[key].stats.FlatHPRegenMod));
+                            } else {
+                                document.getElementById('healthregen').innerHTML = healthregen - (rune_amount*Number(json.data[key].stats.FlatHPRegenMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatMPRegenMod')){
+                            if(!remove_rune){
+                                document.getElementById('manaregen').innerHTML = manaregen + (rune_amount*Number(json.data[key].stats.FlatMPRegenMod));
+                            } else {
+                                document.getElementById('manaregen').innerHTML = manaregen - (rune_amount*Number(json.data[key].stats.FlatMPRegenMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatMagicDamageMod')){
+                            if(!remove_rune){
+                                document.getElementById('abilitypower').innerHTML = abilitypower + (rune_amount*Number(json.data[key].stats.FlatMagicDamageMod));
+                            } else {
+                                document.getElementById('abilitypower').innerHTML = abilitypower - (rune_amount*Number(json.data[key].stats.FlatMagicDamageMod));
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('rPercentCooldownMod')){
+                            if(!remove_rune){
+                                document.getElementById('cooldownreduction').innerHTML = cooldownreduction + (rune_amount*Number(json.data[key].stats.rPercentCooldownMod)*100*-1);
+                            } else {
+                                document.getElementById('cooldownreduction').innerHTML = cooldownreduction - (rune_amount*Number(json.data[key].stats.rPercentCooldownMod)*100*-1);
+                            }
+                        }
+                        if(json.data[key].stats.hasOwnProperty('FlatSpellBlockMod')){
+                            if(!remove_rune){
+                                document.getElementById('magicresist').innerHTML = magicresist + (rune_amount*Number(json.data[key].stats.FlatSpellBlockMod));
+                            } else {
+                                document.getElementById('magicresist').innerHTML = magicresist - (rune_amount*Number(json.data[key].stats.FlatSpellBlockMod));
+                            }
+                        }
+                    }
+                }
+
+                console.log(rune_id);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
             }
