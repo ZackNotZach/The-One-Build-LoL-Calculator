@@ -101,14 +101,18 @@
         var num_towers = document.getElementById('towers').value;
         var num_jungleclears = document.getElementById('jungleclears').value;
         
-        //convert gametime to seconds before here -----------
+        var split_gametimes = gametime.split(':');
+        var gametime_sec = (split_gametimes[0] * 60) + split_gametimes[1];
         var total_gold;
-        total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (gold_generation * gametime) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
+        total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (gold_generation * gametime_sec) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
         console.log(total_gold);
         
         var html_gold = document.getElementsByClassName('goldamt');
-        for(var i = 0; i < html_gold.length; i++){
-            html_gold[i].innerHTML = total_gold;
+        if(isNaN(total_gold) === false){
+            total_gold = Math.floor(total_gold);
+            for(var i = 0; i < html_gold.length; i++){
+                html_gold[i].innerHTML = total_gold;
+            }
         }
     }
 
@@ -1237,92 +1241,98 @@
         var item_bought = false;
         var shop_image = document.getElementById(this.id);
         var clicked_image = shop_image.src;
-        var iven_zero = document.getElementById('inventory_item0');
-        var iven_one = document.getElementById('inventory_item1');
-        var iven_two = document.getElementById('inventory_item2');
-        var iven_three = document.getElementById('inventory_item3');
-        var iven_four = document.getElementById('inventory_item4');
-        var iven_five = document.getElementById('inventory_item5');
         
-        var zero_src = iven_zero.src;
-        var one_src = iven_one.src;
-        var two_src = iven_two.src;
-        var three_src = iven_three.src;
-        var four_src = iven_four.src;
-        var five_src = iven_five.src;
-
-        var src_temp_zero = zero_src.substr(zero_src.length - 25, zero_src.length);
-        var src_temp_one = one_src.substr(one_src.length - 25, one_src.length);
-        var src_temp_two = two_src.substr(two_src.length - 25, two_src.length);
-        var src_temp_three = three_src.substr(three_src.length - 25, three_src.length);
-        var src_temp_four = four_src.substr(four_src.length - 25, four_src.length);
-        var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
-        
-        var empty_item = "/icons/EmptyIcon_Item.png";
-        if(src_temp_zero == empty_item){
-            iven_zero.src = clicked_image;
-            item_bought = true;
-        }else{
-            if(src_temp_one == empty_item){
-                iven_one.src = clicked_image;
-                item_bought = true;
-            }else{
-                if(src_temp_two == empty_item){
-                    iven_two.src = clicked_image;
-                    item_bought = true;
-                }else{
-                    if(src_temp_three == empty_item){
-                        iven_three.src = clicked_image;
-                        item_bought = true;
-                    }else{
-                        if(src_temp_four == empty_item){
-                            iven_four.src = clicked_image;
-                            item_bought = true;
-                        }else{
-                            if(src_temp_five == empty_item){
-                                iven_five.src = clicked_image;
-                                item_bought = true;
-                            }
-                        }
-                    }
-                }
-            }	
-        }
-
         var item_id = clicked_image;
         item_id = item_id.substr(item_id.length - 8);
         item_id = item_id.slice(0,4);
         
-        var gold_temp = [];
-        var gold_totals = document.getElementsByClassName('goldamt');
-        for(var i = 0; i < gold_totals.length; i++){
-            gold_temp[i] = gold_totals[i].innerHTML;
-            gold_temp[i] = parseInt(gold_temp[i], 10);
-        }
+        
         
         item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
         
-        if(item_bought === true){
-            $.ajax({
-                url:  item_url,
-                type: 'GET',
-                dataType: 'json',
-                data: {
+        var item_cost;
+        $.ajax({
+            url:  item_url,
+            type: 'GET',
+            dataType: 'json',
+            data: {
 
-                },
-                success: function (json) {	
-                    console.log(json.gold.total);
-                    console.log(gold_temp);
-                    for(var i = 0; i < gold_totals.length; i++){
-                        gold_totals[i].innerHTML = gold_temp[i] - json.gold.total;
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("error getting Item data!");
+            },
+            success: function (json) {	
+                item_cost = json.gold.total;
+                var iven_zero = document.getElementById('inventory_item0');
+                var iven_one = document.getElementById('inventory_item1');
+                var iven_two = document.getElementById('inventory_item2');
+                var iven_three = document.getElementById('inventory_item3');
+                var iven_four = document.getElementById('inventory_item4');
+                var iven_five = document.getElementById('inventory_item5');
+                
+                var gold_temp = [];
+                var gold_totals = document.getElementsByClassName('goldamt');
+                for(var i = 0; i < gold_totals.length; i++){
+                    gold_temp[i] = gold_totals[i].innerHTML;
+                    gold_temp[i] = parseInt(gold_temp[i], 10);
                 }
-            });
-        }else{
-        }
+                
+                var zero_src = iven_zero.src;
+                var one_src = iven_one.src;
+                var two_src = iven_two.src;
+                var three_src = iven_three.src;
+                var four_src = iven_four.src;
+                var five_src = iven_five.src;
+
+                var src_temp_zero = zero_src.substr(zero_src.length - 25, zero_src.length);
+                var src_temp_one = one_src.substr(one_src.length - 25, one_src.length);
+                var src_temp_two = two_src.substr(two_src.length - 25, two_src.length);
+                var src_temp_three = three_src.substr(three_src.length - 25, three_src.length);
+                var src_temp_four = four_src.substr(four_src.length - 25, four_src.length);
+                var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
+                
+                var empty_item = "/icons/EmptyIcon_Item.png";
+                if((gold_temp[0] - item_cost) > 0){
+                    if(src_temp_zero == empty_item){
+                        iven_zero.src = clicked_image;
+                        item_bought = true;
+                    }else{
+                        if(src_temp_one == empty_item){
+                            iven_one.src = clicked_image;
+                            item_bought = true;
+                        }else{
+                            if(src_temp_two == empty_item){
+                                iven_two.src = clicked_image;
+                                item_bought = true;
+                            }else{
+                                if(src_temp_three == empty_item){
+                                    iven_three.src = clicked_image;
+                                    item_bought = true;
+                                }else{
+                                    if(src_temp_four == empty_item){
+                                        iven_four.src = clicked_image;
+                                        item_bought = true;
+                                    }else{
+                                        if(src_temp_five == empty_item){
+                                            iven_five.src = clicked_image;
+                                            item_bought = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }	
+                    }
+                }
+
+                if(item_bought === true){
+                    for(var i = 0; i < gold_totals.length; i++){
+                        gold_totals[i].innerHTML = gold_temp[i] - item_cost;
+                    }
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Item data!");
+            }
+        });
+        
+        
     }
     
     function update_gamedata(dataName){
@@ -1375,12 +1385,40 @@
         var inven_image = document.getElementById(this.id);
         var image_source = inven_image.src;
         inven_image.src = "icons/EmptyIcon_Item.png";
-        
+
+        var gold_temp = [];
+        var gold_totals = document.getElementsByClassName('goldamt');
+        for(var i = 0; i < gold_totals.length; i++){
+            gold_temp[i] = gold_totals[i].innerHTML;
+            gold_temp[i] = parseInt(gold_temp[i], 10);
+        }
+
         var remove_id = image_source;
         remove_id = remove_id.substr(remove_id.length - 8);
         remove_id = remove_id.slice(0,4);
         
         item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
+        
+        var item_cost;
+        $.ajax({
+            url:  item_url,
+            type: 'GET',
+            dataType: 'json',
+            data: {
+
+            },
+            success: function (json) {	
+                //console.log(json.gold.total);
+                item_cost = json.gold.total;
+                
+                for(var i = 0; i < gold_totals.length; i++){
+                    gold_totals[i].innerHTML = gold_temp[i] + item_cost;
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error getting Item data!");
+            }
+        });
     }
 
     function item_stats(){
