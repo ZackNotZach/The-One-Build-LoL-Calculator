@@ -2,6 +2,10 @@
 (function() {
 
     var champion = window.localStorage.getItem('champname');
+
+    var re = /(\b[a-z](?!\s))/g; 
+    champion = champion.replace(re, function(x){return x.toUpperCase();});
+
     console.log(champion);
     document.getElementById('champsearch2').value = champion;
     
@@ -27,7 +31,7 @@
     initializeShop();
 
     //Event Handlers
-    document.getElementById('champsearch2').addEventListener('keypress', function(event) { on_search(event); });
+    document.getElementById('champsearch2form').addEventListener('submit', function(e) { on_search(e);});
     var filters = document.getElementsByClassName('filter');
     for(var i = 0; i < filters.length; i++){
         filters[i].addEventListener('click', shop_filter);
@@ -208,123 +212,46 @@
     }
 
     function on_search(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-        if(code==13){
-            //champion icon
-            var champname = document.getElementById('champsearch2').value;
-            if(champname == 'cocaine'){
-                champname = document.getElementById('champsearch').value;
-                document.getElementById('champsearch2').value = champname;
-            }
-            var name = champname;
-            var icon = document.getElementById('champicon');
-            
-            //need to grab latest patch number and insert here
-            var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
-            var almost = name.concat(".png");
-            icon.src = icon_url.concat(almost);
-            
-            //splash art
-            var splash_url = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
-            almost = name.concat("_0.jpg");
-            splash_url = splash_url.concat(almost);
-            document.getElementById('bgimg').src = splash_url;
-            
-            /*check if result is a 404
-            
-            var icon = document.getElementById('champicon');
-            icon.src = "Icons/nochamp.png";
-            console.log("that's not a real champ, silly goose");  "+name+"'s*/
-            
-            /*transition into base stats screen*/
-            document.getElementById('welcometitle').innerHTML = "Nice choice. Now let's get down to business.";
-            document.getElementById('welcometext').innerHTML = ""+name+"'s base stats are on the left and their abilities are below. To start planning your build, we'll need some information. Use the tabs on the right to add runes, scores, and items. Your stats and scalings will update as you go.";
-            
-            
-            /*get base stats from API*/
-            setTimeout(get_base_stats(), 1);
-            setTimeout(change_passive(), 1);
-            setTimeout(change_abilities(), 1);
-            setTimeout(changePassive(), 1);
-            
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-
-                },
-                success: function (json) {
-                    var shop_array = [];
-                    var item_info = [];
-                    
-                    for(var key in json.data){
-                        if(json.data.hasOwnProperty(key)){	
-                            shop_array.push(key);
-                            item_info.push(json.data[key]);
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].maps["11"] == false){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].consumed == true){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].group == "BootsDistortion"){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].group == "BootsCaptain"){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].group == "BootsAlacrity"){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                        for(k=0; k < shop_array.length; k++){
-                            if(item_info[k].group == "BootsFuror"){
-                                shop_array.splice(k,1);
-                                item_info.splice(k,1);
-                            }
-                        }
-                    }
-                    j=0;
-                    for(i=0; i<72; i++){
-                        var num = i.toString();
-                        var shop_icon_string = "shop_icon"
-                        var shop_id = shop_icon_string.concat(num);
-                        var item_url = "http://ddragon.leagueoflegends.com/cdn/6.8.1/img/item/";
-                        var temp = shop_array[j];
-                        
-                        var mid_shop_array = temp.concat(".png");
-                        var shop_source = document.getElementById(shop_id);
-
-                        if(i < shop_array.length){
-                            shop_source.src = item_url.concat(mid_shop_array);
-                        } else {
-                            shop_source.src = "icons/EmptyIcon_Item.png";
-                        }
-                        j++;
-                    }
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    
-                }
-            });
+        e.preventDefault();
+        //champion icon
+        console.log(document.getElementById('champsearch2'));
+        var champname = document.getElementById('champsearch2').value;
+        if(champname == 'cocaine'){
+            champname = document.getElementById('champsearch').value;
+            document.getElementById('champsearch2').value = champname;
         }
+        var name = champname;
+        var icon = document.getElementById('champicon');
+        
+        //need to grab latest patch number and insert here
+        var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+        var almost = name.concat(".png");
+        icon.src = icon_url.concat(almost);
+        
+        //splash art
+        var splash_url = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+        almost = name.concat("_0.jpg");
+        splash_url = splash_url.concat(almost);
+        document.getElementById('bgimg').src = splash_url;
+        
+        /*check if result is a 404
+        
+        var icon = document.getElementById('champicon');
+        icon.src = "Icons/nochamp.png";
+        console.log("that's not a real champ, silly goose");  "+name+"'s*/
+        
+        /*transition into base stats screen*/
+        document.getElementById('welcometitle').innerHTML = "Nice choice. Now let's get down to business.";
+        document.getElementById('welcometext').innerHTML = ""+name+"'s base stats are on the left and their abilities are below. To start planning your build, we'll need some information. Use the tabs on the right to add runes, scores, and items. Your stats and scalings will update as you go.";
+        
+        
+        /*get base stats from API*/
+        setTimeout(get_base_stats(), 1);
+        setTimeout(change_passive(), 1);
+        setTimeout(change_abilities(), 1);
+        setTimeout(changePassive(), 1);
+        initializeShop();
+        
     }
 
         
