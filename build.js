@@ -1502,15 +1502,19 @@
                         if(json.data[key].stats.hasOwnProperty('rFlatArmorPenetrationMod')){
                             if(!remove_rune){
                                 document.getElementById('armorpen').innerHTML = armorpen + (rune_amount*Number(json.data[key].stats.rFlatArmorPenetrationMod));
+                                document.getElementById('armorpen').innerHTML = Number(document.getElementById('armorpen').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('armorpen').innerHTML = armorpen - (rune_amount*Number(json.data[key].stats.rFlatArmorPenetrationMod));
+                                document.getElementById('armorpen').innerHTML = Number(document.getElementById('armorpen').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatPhysicalDamageMod')){
                             if(!remove_rune){
                                 document.getElementById('attackdamage').innerHTML = attackdamage + (rune_amount*Number(json.data[key].stats.FlatPhysicalDamageMod));
+                                document.getElementById('attackdamage').innerHTML = Number(document.getElementById('attackdamage').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('attackdamage').innerHTML = attackdamage - (rune_amount*Number(json.data[key].stats.FlatPhysicalDamageMod));
+                                document.getElementById('attackdamage').innerHTML = Number(document.getElementById('attackdamage').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('PercentAttackSpeedMod')){
@@ -1521,71 +1525,91 @@
                         if(json.data[key].stats.hasOwnProperty('FlatCritChanceMod')){
                             if(!remove_rune){
                                 document.getElementById('criticalchance').innerHTML = criticalchance + (rune_amount*Number(json.data[key].stats.FlatCritChanceMod)*100);
+                                document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('criticalchance').innerHTML = criticalchance - (rune_amount*Number(json.data[key].stats.FlatCritChanceMod)*100);
+                                document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('rFlatMagicPenetrationMod')){
                             if(!remove_rune){
                                 document.getElementById('magicpen').innerHTML = magicpen + (rune_amount*Number(json.data[key].stats.rFlatMagicPenetrationMod));
+                                document.getElementById('magicpen').innerHTML = Number(document.getElementById('magicpen').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('magicpen').innerHTML = magicpen - (rune_amount*Number(json.data[key].stats.rFlatMagicPenetrationMod));
+                                document.getElementById('magicpen').innerHTML = Number(document.getElementById('magicpen').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatArmorMod')){
                             if(!remove_rune){
                                 document.getElementById('armor').innerHTML = armor + (rune_amount*Number(json.data[key].stats.FlatArmorMod));
+                                document.getElementById('armor').innerHTML = Number(document.getElementById('armor').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('armor').innerHTML = armor - (rune_amount*Number(json.data[key].stats.FlatArmorMod));
+                                document.getElementById('armor').innerHTML = Number(document.getElementById('armor').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatHPPoolMod')){
                             if(!remove_rune){
                                 document.getElementById('health').innerHTML = health + (rune_amount*Number(json.data[key].stats.FlatHPPoolMod));
+                                document.getElementById('health').innerHTML = Number(document.getElementById('health').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('health').innerHTML = health - (rune_amount*Number(json.data[key].stats.FlatHPPoolMod));
+                                document.getElementById('health').innerHTML = Number(document.getElementById('health').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatMPPoolMod')){
                             if(!remove_rune){
                                 document.getElementById('mana').innerHTML = mana + (rune_amount*Number(json.data[key].stats.FlatMPPoolMod));
+                                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('mana').innerHTML = mana - (rune_amount*Number(json.data[key].stats.FlatMPPoolMod));
+                                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatHPRegenMod')){
                             if(!remove_rune){
                                 document.getElementById('healthregen').innerHTML = healthregen + (rune_amount*Number(json.data[key].stats.FlatHPRegenMod));
+                                document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('healthregen').innerHTML = healthregen - (rune_amount*Number(json.data[key].stats.FlatHPRegenMod));
+                                document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatMPRegenMod')){
                             if(!remove_rune){
                                 document.getElementById('manaregen').innerHTML = manaregen + (rune_amount*Number(json.data[key].stats.FlatMPRegenMod));
+                                document.getElementById('manaregen').innerHTML = Number(document.getElementById('manaregen').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('manaregen').innerHTML = manaregen - (rune_amount*Number(json.data[key].stats.FlatMPRegenMod));
+                                document.getElementById('manaregen').innerHTML = Number(document.getElementById('manaregen').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatMagicDamageMod')){
                             if(!remove_rune){
                                 document.getElementById('abilitypower').innerHTML = abilitypower + (rune_amount*Number(json.data[key].stats.FlatMagicDamageMod));
+                                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('abilitypower').innerHTML = abilitypower - (rune_amount*Number(json.data[key].stats.FlatMagicDamageMod));
+                                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('rPercentCooldownMod')){
                             if(!remove_rune){
                                 document.getElementById('cooldownreduction').innerHTML = cooldownreduction + (rune_amount*Number(json.data[key].stats.rPercentCooldownMod)*100*-1);
+                                document.getElementById('cooldownreduction').innerHTML = Number(document.getElementById('cooldownreduction').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('cooldownreduction').innerHTML = cooldownreduction - (rune_amount*Number(json.data[key].stats.rPercentCooldownMod)*100*-1);
+                                document.getElementById('cooldownreduction').innerHTML = Number(document.getElementById('cooldownreduction').innerHTML).toFixed(2);
                             }
                         }
                         if(json.data[key].stats.hasOwnProperty('FlatSpellBlockMod')){
                             if(!remove_rune){
                                 document.getElementById('magicresist').innerHTML = magicresist + (rune_amount*Number(json.data[key].stats.FlatSpellBlockMod));
+                                document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML).toFixed(2);
                             } else {
                                 document.getElementById('magicresist').innerHTML = magicresist - (rune_amount*Number(json.data[key].stats.FlatSpellBlockMod));
+                                document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML).toFixed(2);
                             }
                         }
                     }
