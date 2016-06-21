@@ -250,6 +250,7 @@
                         shop_source.src = item_url.concat(mid_shop_array);
                     } else {
                         shop_source.src = "icons/EmptyIcon_Item.png";
+                        console.log(shop_source.src);
                     }
                     j++;
                 }
