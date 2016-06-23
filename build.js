@@ -4,6 +4,10 @@
     var champion = window.localStorage.getItem('champname');
 
     var re = /(\b[a-z](?!\s))/g; 
+    console.log(champion);
+    champion = champion.toLowerCase();
+    champion = champion.replace(/'+/g, '');
+    champion = champion.replace(/\s/g, '');
     champion = champion.replace(re, function(x){return x.toUpperCase();});
 
     console.log(champion);
@@ -51,27 +55,7 @@
         rune_handlers[i].id = 'runeselect' + i;
         rune_handlers[i].addEventListener('click', highlight_rune);
     }
-    document.getElementById('passiveicon').addEventListener('click', clickPassive);
-    document.getElementById('abilityoneicon').addEventListener('click', changeAbilityOne);
-    document.getElementById('abilitytwoicon').addEventListener('click', changeAbilityTwo);
-    document.getElementById('abilitythreeicon').addEventListener('click', changeAbilityThree);
-    document.getElementById('abilityfouricon').addEventListener('click', changeAbilityFour);
-
-    document.getElementById('blue_sentinel').addEventListener('change', function(){update_gamedata("blue_sentinel");});
-    document.getElementById('hand_of_baron').addEventListener('change', function(){update_gamedata("hand_of_baron");});
-    document.getElementById('elder_dragon').addEventListener('change', function(){update_gamedata("elder_dragon");});
     
-    document.body.addEventListener('click', function(event) { test(event); });
-    
-    document.getElementById('kills').addEventListener('keyup', sum_gold);
-    document.getElementById('assists').addEventListener('keyup', sum_gold);
-    document.getElementById('minionkills').addEventListener('keyup', sum_gold);
-    document.getElementById('barons').addEventListener('keyup', sum_gold);
-    document.getElementById('riftheralds').addEventListener('keyup', sum_gold);
-    document.getElementById('gametime').addEventListener('keyup', sum_gold);
-    document.getElementById('towers').addEventListener('keyup', sum_gold);
-    document.getElementById('jungleclears').addEventListener('keyup', sum_gold);
-    console.log(document.getElementById('kills').value);
     
     //get the full item json from ddragon
     var item_json;
@@ -126,6 +110,26 @@
         }
     });
     
+    document.getElementById('passiveicon').addEventListener('click', clickPassive);
+    document.getElementById('abilityoneicon').addEventListener('click', changeAbilityOne);
+    document.getElementById('abilitytwoicon').addEventListener('click', changeAbilityTwo);
+    document.getElementById('abilitythreeicon').addEventListener('click', changeAbilityThree);
+    document.getElementById('abilityfouricon').addEventListener('click', changeAbilityFour);
+
+    document.getElementById('blue_sentinel').addEventListener('change', function(){update_gamedata("blue_sentinel");});
+    document.getElementById('hand_of_baron').addEventListener('change', function(){update_gamedata("hand_of_baron");});
+    document.getElementById('elder_dragon').addEventListener('change', function(){update_gamedata("elder_dragon");});
+    
+    document.getElementById('kills').addEventListener('keyup', sum_gold);
+    document.getElementById('assists').addEventListener('keyup', sum_gold);
+    document.getElementById('minionkills').addEventListener('keyup', sum_gold);
+    document.getElementById('barons').addEventListener('keyup', sum_gold);
+    document.getElementById('riftheralds').addEventListener('keyup', sum_gold);
+    document.getElementById('gametime').addEventListener('keyup', sum_gold);
+    document.getElementById('towers').addEventListener('keyup', sum_gold);
+    document.getElementById('jungleclears').addEventListener('keyup', sum_gold);
+    console.log(document.getElementById('kills').value);
+    
     //get all the information from the api and display it
     get_base_stats();
     initializeShop();
@@ -159,7 +163,11 @@
         var split_gametimes = gametime.split(':');
         var gametime_sec = (split_gametimes[0] * 60) + split_gametimes[1];
         var total_gold;
-        total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (gold_generation * gametime_sec) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
+        if(isNaN(gametime_sec) === false){
+            total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (gold_generation * gametime_sec) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
+        }else{
+            total_gold = start_gold + (kill_worth * num_kills) + (assist_worth * num_assist) + (avgminion_worth * num_minions) + (baron_worth * num_barons) + (riftherald_worth * num_riftheralds) + (tower_worth * num_towers) + (jungleclear_worth * num_jungleclears);
+        }
         console.log(total_gold);
         
         var html_gold = document.getElementsByClassName('goldamt');
@@ -249,7 +257,7 @@
                     if(i < shop_array.length){
                         shop_source.src = item_url.concat(mid_shop_array);
                     } else {
-                        shop_source.src = "icons/EmptyIcon_Item.png";
+                        shop_source.src = "Pictures/emptyitemicon.png";
                         console.log(shop_source.src);
                     }
                     j++;
@@ -392,7 +400,7 @@
         }
     }
 
-    function change_abilities(){
+    function change_abilities(json){
         var champ_name = "";
         champ_name = $("#champsearch2").val();
         var re = /(\b[a-z](?!\s))/g; 
@@ -400,53 +408,37 @@
         if(champ_name=="cocaine"){
             champ_name = $("#champsearch").val();
         }
-        if(champ_name !== ""){
+        var champ_name_nospaces = champ_name.replace(" ", "");
+        champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
         
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {
+        
+        var abilities= ["", "", "", ""];
+        for(i=0; i<4; i++){
 
-                },
-                success: function (json) {
-                    var champ_name_nospaces = champ_name.replace(" ", "");
-                    champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-                    
-                    
-                    var abilities= ["", "", "", ""];
-                    for(i=0; i<4; i++){
-            
-                        abilities[i] = json.data[champ_name].spells[i].image.full;
-                        console.log(abilities[i]);
-                    }
-                    
-                    
-                    
-                    var ability_url = "https://ddragon.leagueoflegends.com/cdn/5.23.1/img/spell/"
-                    var ab_one = document.getElementById('abilityoneicon');
-                    var ab_two = document.getElementById('abilitytwoicon');
-                    var ab_three = document.getElementById('abilitythreeicon');
-                    var ab_four = document.getElementById('abilityfouricon');
-                    for(j=0; j<4; j++){
-                        if(j==0){
-                            ab_one.src = ability_url.concat(abilities[j]);
-                        }
-                        if(j==1){
-                            ab_two.src = ability_url.concat(abilities[j]);
-                        }
-                        if(j==2){
-                            ab_three.src = ability_url.concat(abilities[j]);
-                        }
-                        if(j==3){
-                            ab_four.src = ability_url.concat(abilities[j]);
-                        }
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    
-                }
-            });
+            abilities[i] = json.data[champ_name].spells[i].image.full;
+            console.log(abilities[i]);
+        }
+        
+        
+        
+        var ability_url = "https://ddragon.leagueoflegends.com/cdn/5.23.1/img/spell/"
+        var ab_one = document.getElementById('abilityoneicon');
+        var ab_two = document.getElementById('abilitytwoicon');
+        var ab_three = document.getElementById('abilitythreeicon');
+        var ab_four = document.getElementById('abilityfouricon');
+        for(j=0; j<4; j++){
+            if(j==0){
+                ab_one.src = ability_url.concat(abilities[j]);
+            }
+            if(j==1){
+                ab_two.src = ability_url.concat(abilities[j]);
+            }
+            if(j==2){
+                ab_three.src = ability_url.concat(abilities[j]);
+            }
+            if(j==3){
+                ab_four.src = ability_url.concat(abilities[j]);
+            }
         }
     }
     
@@ -480,97 +472,84 @@
             champ_name = $("#champsearch").val();
         }
         if(champ_name !== ""){
-            
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {},
-                success: function (json) {
-                var champ_name_nospaces = champ_name.replace(" ", "");
-                champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-                            
-                            
-                <!-- ability description -->			
-                var ab_one_text = document.getElementById('abilitytext');
-                
-                var ab_one_title = document.getElementById('abilityname');
-                ab_one_title.innerHTML = json.data[champ_name].spells[0].name;
-                            
-                <!-- replacing placeholder values with real data -->
-                var str = json.data[champ_name].spells[0].tooltip;			
-                    str = str.replace(/{/g, '').replace(/}/g, '');
-                    
-                    var e_array = str.match(/[e][0-9]/g);
-                    var f_array = str.match(/[f][0-9]/g);
-                    var a_array = str.match(/[a][0-9]/g);
-                    
-                    var varslength;
-                    
-                    if(f_array != null && a_array != null){
-                        varslength = f_array.length + a_array.length;
-                    }
-                    if(f_array == null && a_array != null){
-                        varslength = a_array.length;
-                    }
-                    if(a_array == null && f_array != null){
-                        varslength = f_array.length;
-                    }
-                    if(f_array == null && a_array == null){
-                        varslength = 0;
-                    }	
-                            
-                    if(e_array != null){
-                        for(i=0; i < e_array.length; i++){
-                            var e_array_two = [""];
-                            e_array_two[i] = e_array[i].replace(/\D/g, '');
-                            e_array_two[i] = Number(e_array_two[i]);
-                            str = str.replace(e_array[i] , json.data[champ_name].spells[0].effectBurn[e_array_two[i]]);
-                        }
-                    }
-                    
-                    
-                    if(f_array != null){
-                        for(j=0; j < f_array.length; j++){
-                            for(h=0; h < varslength; h++){
-                                if(json.data[champ_name].spells[0].vars[h] != undefined){
-                                    if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
-                                        str = str.replace(f_array[j] , json.data[champ_name].spells[0].vars[h].coeff);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-
-                    //ability power
-                    if(a_array != null){
+            var champ_name_nospaces = champ_name.replace(" ", "");
+            champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
                         
-                        for(k=0; k < a_array.length; k++){
-                            for(g=0; g < varslength; g++){
-                                console.log(varslength);
-                                if(json.data[champ_name].spells[0].vars[g] != undefined){
-                                    if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
-                                        //str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
-
-                                        var scaling=document.getElementById("abilitypower").innerHTML;
-                                        scaling=scaling*json.data[champ_name].spells[0].vars[g].coeff;
-                                        console.log(scaling);
-
-                                        str = str.replace(a_array[k], scaling);
-                                    }
-                                }
+                        
+            <!-- ability description -->			
+            var ab_one_text = document.getElementById('abilitytext');
+            
+            var ab_one_title = document.getElementById('abilityname');
+            ab_one_title.innerHTML = ability_json.data[champ_name].spells[0].name;
+                        
+            <!-- replacing placeholder values with real data -->
+            var str = ability_json.data[champ_name].spells[0].tooltip;			
+            str = str.replace(/{/g, '').replace(/}/g, '');
+            
+            var e_array = str.match(/[e][0-9]/g);
+            var f_array = str.match(/[f][0-9]/g);
+            var a_array = str.match(/[a][0-9]/g);
+            
+            var varslength;
+            
+            if(f_array != null && a_array != null){
+                varslength = f_array.length + a_array.length;
+            }
+            if(f_array == null && a_array != null){
+                varslength = a_array.length;
+            }
+            if(a_array == null && f_array != null){
+                varslength = f_array.length;
+            }
+            if(f_array == null && a_array == null){
+                varslength = 0;
+            }	
+                    
+            if(e_array != null){
+                for(i=0; i < e_array.length; i++){
+                    var e_array_two = [""];
+                    e_array_two[i] = e_array[i].replace(/\D/g, '');
+                    e_array_two[i] = Number(e_array_two[i]);
+                    str = str.replace(e_array[i] , ability_json.data[champ_name].spells[0].effectBurn[e_array_two[i]]);
+                }
+            }
+            
+            
+            if(f_array != null){
+                for(j=0; j < f_array.length; j++){
+                    for(h=0; h < varslength; h++){
+                        if(json.data[champ_name].spells[0].vars[h] != undefined){
+                            if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
+                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[0].vars[h].coeff);
                             }
-                            
                         }
                     }
-                    ab_one_text.innerHTML = str;
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                
                 }
-            });
+            }
+            
+
+            //ability power
+            if(a_array != null){
+                
+                for(k=0; k < a_array.length; k++){
+                    for(g=0; g < varslength; g++){
+                        console.log(varslength);
+                        if(ability_json.data[champ_name].spells[0].vars[g] != undefined){
+                            if(ability_json.data[champ_name].spells[0].vars[g].key == a_array[k]){
+                                //str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+
+                                var scaling=document.getElementById("abilitypower").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[0].vars[g].coeff;
+                                console.log(scaling);
+
+                                str = str.replace(a_array[k], scaling);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            ab_one_text.innerHTML = str;
         }
     }	
     function changeAbilityTwo(){
@@ -582,99 +561,83 @@
             champ_name = $("#champsearch").val();
         }
         if(champ_name !== ""){
-        
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-
-                },
-                success: function (json) {
-                    var champ_name_nospaces = champ_name.replace(" ", "");
-                    champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-                    
-                    <!-- passive description -->
-                    var ab_two_text = document.getElementById('abilitytext');
-                    
-                    var ab_two_title = document.getElementById('abilityname');
-                    ab_two_title.innerHTML = json.data[champ_name].spells[1].name;
-                    
-                    
-                    <!-- replacing placeholder values with real data -->
-                    var str = json.data[champ_name].spells[1].tooltip;
-                    
-                    str = str.replace(/{/g, '').replace(/}/g, '');
-                    
-                    var e_array = str.match(/[e][0-9]/g);
-                    var f_array = str.match(/[f][0-9]/g);
-                    var a_array = str.match(/[a][0-9]/g);
-                    
-                    var varslength;
-                    
-                    if(f_array != null && a_array != null){
-                        varslength = f_array.length + a_array.length;
-                    }
-                    if(f_array == null && a_array != null){
-                        varslength = a_array.length;
-                    }
-                    if(a_array == null && f_array != null){
-                        varslength = f_array.length;
-                    }
-                    if(f_array == null && a_array == null){
-                        varslength = 0;
-                    }	
-                    
-                    if(e_array != null){
-                        for(i=0; i < e_array.length; i++){
-                            console.log(e_array[i]);
-                            var e_array_two = [""];
-                            e_array_two[i] = e_array[i].replace(/\D/g, '');
-                            e_array_two[i] = Number(e_array_two[i]);
-                            str = str.replace(e_array[i] , json.data[champ_name].spells[1].effectBurn[e_array_two[i]]);
-                        }
-                    }
-                    
-                    
-                    if(f_array != null){
-                        for(j=0; j < f_array.length; j++){
-                            for(h=0; h < varslength; h++){
-                                if(json.data[champ_name].spells[1].vars[h] != undefined){
-                                    if(json.data[champ_name].spells[1].vars[h].key == f_array[j]){
-                                        str = str.replace(f_array[j] , json.data[champ_name].spells[1].vars[h].coeff);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if(a_array != null){
-                        
-                        for(k=0; k < a_array.length; k++){
-                            for(g=0; g < varslength; g++){
-                                if(json.data[champ_name].spells[1].vars[g] != undefined){
-                                    if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
-                                        //str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
-
-                                        var scaling=document.getElementById("abilitypower").innerHTML;
-                                        scaling=scaling*json.data[champ_name].spells[1].vars[g].coeff;
-                                        console.log(scaling);
-
-                                        str = str.replace(a_array[k], scaling);
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }
-                    ab_two_text.innerHTML = str;
-                    
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var champ_name_nospaces = champ_name.replace(" ", "");
+            champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
             
+            <!-- passive description -->
+            var ab_two_text = document.getElementById('abilitytext');
+            
+            var ab_two_title = document.getElementById('abilityname');
+            ab_two_title.innerHTML = ability_json.data[champ_name].spells[1].name;
+            
+            
+            <!-- replacing placeholder values with real data -->
+            var str = ability_json.data[champ_name].spells[1].tooltip;
+            
+            str = str.replace(/{/g, '').replace(/}/g, '');
+            
+            var e_array = str.match(/[e][0-9]/g);
+            var f_array = str.match(/[f][0-9]/g);
+            var a_array = str.match(/[a][0-9]/g);
+            
+            var varslength;
+            
+            if(f_array != null && a_array != null){
+                varslength = f_array.length + a_array.length;
+            }
+            if(f_array == null && a_array != null){
+                varslength = a_array.length;
+            }
+            if(a_array == null && f_array != null){
+                varslength = f_array.length;
+            }
+            if(f_array == null && a_array == null){
+                varslength = 0;
+            }	
+            
+            if(e_array != null){
+                for(i=0; i < e_array.length; i++){
+                    console.log(e_array[i]);
+                    var e_array_two = [""];
+                    e_array_two[i] = e_array[i].replace(/\D/g, '');
+                    e_array_two[i] = Number(e_array_two[i]);
+                    str = str.replace(e_array[i] , ability_json.data[champ_name].spells[1].effectBurn[e_array_two[i]]);
                 }
-            });
+            }
+            
+            
+            if(f_array != null){
+                for(j=0; j < f_array.length; j++){
+                    for(h=0; h < varslength; h++){
+                        if(ability_json.data[champ_name].spells[1].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[1].vars[h].key == f_array[j]){
+                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[1].vars[h].coeff);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if(a_array != null){
+                
+                for(k=0; k < a_array.length; k++){
+                    for(g=0; g < varslength; g++){
+                        if(ability_json.data[champ_name].spells[1].vars[g] != undefined){
+                            if(ability_json.data[champ_name].spells[1].vars[g].key == a_array[k]){
+                                //str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+
+                                var scaling=document.getElementById("abilitypower").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[1].vars[g].coeff;
+                                console.log(scaling);
+
+                                str = str.replace(a_array[k], scaling);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            ab_two_text.innerHTML = str;
         }
     }	
     function changeAbilityThree(){
@@ -686,100 +649,83 @@
             champ_name = $("#champsearch").val();
         }
         if(champ_name !== ""){
-        
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {
+            var champ_name_nospaces = champ_name.replace(" ", "");
+            champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+            
+            <!-- passive description -->
+            var ab_three_text = document.getElementById('abilitytext');
+            
+            var ab_three_title = document.getElementById('abilityname');
+            ab_three_title.innerHTML = ability_json.data[champ_name].spells[2].name;
+            
+            <!-- replacing placeholder values with real data -->
+            var str = ability_json.data[champ_name].spells[2].tooltip;
+            
+            str = str.replace(/{/g, '').replace(/}/g, '');
+            
+            var e_array = str.match(/[e][0-9]/g);
+            var f_array = str.match(/[f][0-9]/g);
+            var a_array = str.match(/[a][0-9]/g);
+            
+            var varslength;
+            
+            if(f_array != null && a_array != null){
+                varslength = f_array.length + a_array.length;
+            }
+            if(f_array == null && a_array != null){
+                varslength = a_array.length;
+            }
+            if(a_array == null && f_array != null){
+                varslength = f_array.length;
+            }
+            if(f_array == null && a_array == null){
+                varslength = 0;
+            }	
+            
+            if(e_array != null){
+                for(i=0; i < e_array.length; i++){
 
-                },
-                success: function (json) {
-                    var champ_name_nospaces = champ_name.replace(" ", "");
-                    champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-                    
-                    <!-- passive description -->
-                    var ab_three_text = document.getElementById('abilitytext');
-                    
-                    var ab_three_title = document.getElementById('abilityname');
-                    ab_three_title.innerHTML = json.data[champ_name].spells[2].name;
-                    
-                    <!-- replacing placeholder values with real data -->
-                    var str = json.data[champ_name].spells[2].tooltip;
-                    
-                    str = str.replace(/{/g, '').replace(/}/g, '');
-                    
-                    var e_array = str.match(/[e][0-9]/g);
-                    var f_array = str.match(/[f][0-9]/g);
-                    var a_array = str.match(/[a][0-9]/g);
-                    
-                    var varslength;
-                    
-                    if(f_array != null && a_array != null){
-                        varslength = f_array.length + a_array.length;
-                    }
-                    if(f_array == null && a_array != null){
-                        varslength = a_array.length;
-                    }
-                    if(a_array == null && f_array != null){
-                        varslength = f_array.length;
-                    }
-                    if(f_array == null && a_array == null){
-                        varslength = 0;
-                    }	
-                    
-                    if(e_array != null){
-                        for(i=0; i < e_array.length; i++){
-
-                            var e_array_two = [""];
-                            e_array_two[i] = e_array[i].replace(/\D/g, '');
-                            e_array_two[i] = Number(e_array_two[i]);
-                            str = str.replace(e_array[i] , json.data[champ_name].spells[2].effectBurn[e_array_two[i]]);
-                        }
-                    }
-                    
-                    
-                    if(f_array != null){
-                        for(j=0; j < f_array.length; j++){
-                            for(h=0; h < varslength; h++){
-                                if(json.data[champ_name].spells[2].vars[h] != undefined){
-                                    if(json.data[champ_name].spells[2].vars[h].key == f_array[j]){
-                                        str = str.replace(f_array[j] , json.data[champ_name].spells[2].vars[h].coeff);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if(a_array != null){
-                        
-                        for(k=0; k < a_array.length; k++){
-                            for(g=0; g < varslength; g++){
-                                console.log(json.data[champ_name].spells[2].vars[g].key);
-                                if(json.data[champ_name].spells[2].vars[g] != undefined){
-                                    if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
-                                        //str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
-
-                                        //setTimeout(getstats, 1000);
-                                        var scaling=document.getElementById("abilitypower").innerHTML;
-                                        scaling=scaling*json.data[champ_name].spells[2].vars[g].coeff;
-                                        console.log(scaling);
-
-                                        str = str.replace(a_array[k], scaling);
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }
-                    ab_three_text.innerHTML = str;
-                    
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                
+                    var e_array_two = [""];
+                    e_array_two[i] = e_array[i].replace(/\D/g, '');
+                    e_array_two[i] = Number(e_array_two[i]);
+                    str = str.replace(e_array[i] , ability_json.data[champ_name].spells[2].effectBurn[e_array_two[i]]);
                 }
-            });
+            }
+            
+            
+            if(f_array != null){
+                for(j=0; j < f_array.length; j++){
+                    for(h=0; h < varslength; h++){
+                        if(ability_json.data[champ_name].spells[2].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[2].vars[h].key == f_array[j]){
+                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[2].vars[h].coeff);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if(a_array != null){
+                
+                for(k=0; k < a_array.length; k++){
+                    for(g=0; g < varslength; g++){
+                        if(ability_json.data[champ_name].spells[2].vars[g] != undefined){
+                            if(ability_json.data[champ_name].spells[2].vars[g].key == a_array[k]){
+                                //str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+
+                                //setTimeout(getstats, 1000);
+                                var scaling=document.getElementById("abilitypower").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[2].vars[g].coeff;
+                                console.log(scaling);
+
+                                str = str.replace(a_array[k], scaling);
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            ab_three_text.innerHTML = str;
         }
     }	
     function changeAbilityFour(){
@@ -791,99 +737,83 @@
             champ_name = $("#champsearch").val();
         }
         if(champ_name !== ""){
-        
-            $.ajax({
-                url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=5bafa309-a330-491a-aaae-49498b8ea57a',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-
-                },
-                success: function (json) {
-                    var champ_name_nospaces = champ_name.replace(" ", "");
-                    champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-                    
-                    <!-- passive description -->
-                    var ab_four_text = document.getElementById('abilitytext');
-                    
-                    var ab_four_title = document.getElementById('abilityname');
-                    ab_four_title.innerHTML = json.data[champ_name].spells[3].name;
-                    
-                    <!-- replacing placeholder values with real data -->
-                    var str = json.data[champ_name].spells[3].tooltip;
-                    
-                    str = str.replace(/{/g, '').replace(/}/g, '');
-                    
-                    var e_array = str.match(/[e][0-9]/g);
-                    var f_array = str.match(/[f][0-9]/g);
-                    var a_array = str.match(/[a][0-9]/g);
-                    
-                    var varslength;
-                    
-                    if(f_array != null && a_array != null){
-                        varslength = f_array.length + a_array.length;
-                    }
-                    if(f_array == null && a_array != null){
-                        varslength = a_array.length;
-                    }
-                    if(a_array == null && f_array != null){
-                        varslength = f_array.length;
-                    }
-                    if(f_array == null && a_array == null){
-                        varslength = 0;
-                    }	
-                    
-                    if(e_array != null){
-                        for(i=0; i < e_array.length; i++){
-                            console.log(e_array[i]);
-                            var e_array_two = [""];
-                            e_array_two[i] = e_array[i].replace(/\D/g, '');
-                            e_array_two[i] = Number(e_array_two[i]);
-                            str = str.replace(e_array[i] , json.data[champ_name].spells[3].effectBurn[e_array_two[i]]);
-                        }
-                    }
-                    
-                    
-                    if(f_array != null){
-                        for(j=0; j < f_array.length; j++){
-                            for(h=0; h < varslength; h++){
-                                if(json.data[champ_name].spells[3].vars[h] != undefined){
-                                    if(json.data[champ_name].spells[3].vars[h].key == f_array[j]){
-                                        str = str.replace(f_array[j] , json.data[champ_name].spells[3].vars[h].coeff);
-                                    }
-                                }
+            var champ_name_nospaces = champ_name.replace(" ", "");
+            champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+            
+            <!-- passive description -->
+            var ab_four_text = document.getElementById('abilitytext');
+            
+            var ab_four_title = document.getElementById('abilityname');
+            ab_four_title.innerHTML = ability_json.data[champ_name].spells[3].name;
+            
+            <!-- replacing placeholder values with real data -->
+            var str = ability_json.data[champ_name].spells[3].tooltip;
+            
+            str = str.replace(/{/g, '').replace(/}/g, '');
+            
+            var e_array = str.match(/[e][0-9]/g);
+            var f_array = str.match(/[f][0-9]/g);
+            var a_array = str.match(/[a][0-9]/g);
+            
+            var varslength;
+            
+            if(f_array != null && a_array != null){
+                varslength = f_array.length + a_array.length;
+            }
+            if(f_array == null && a_array != null){
+                varslength = a_array.length;
+            }
+            if(a_array == null && f_array != null){
+                varslength = f_array.length;
+            }
+            if(f_array == null && a_array == null){
+                varslength = 0;
+            }	
+            
+            if(e_array != null){
+                for(i=0; i < e_array.length; i++){
+                    console.log(e_array[i]);
+                    var e_array_two = [""];
+                    e_array_two[i] = e_array[i].replace(/\D/g, '');
+                    e_array_two[i] = Number(e_array_two[i]);
+                    str = str.replace(e_array[i] , ability_json.data[champ_name].spells[3].effectBurn[e_array_two[i]]);
+                }
+            }
+            
+            
+            if(f_array != null){
+                for(j=0; j < f_array.length; j++){
+                    for(h=0; h < varslength; h++){
+                        if(ability_json.data[champ_name].spells[3].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
                             }
                         }
                     }
-                    
-                    if(a_array != null){
-                        
-                        for(k=0; k < a_array.length; k++){
-                            for(g=0; g < varslength; g++){
-                                if(json.data[champ_name].spells[3].vars[g] != undefined){
-                                    if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
-                                        //str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+                }
+            }
+            
+            if(a_array != null){
+                
+                for(k=0; k < a_array.length; k++){
+                    for(g=0; g < varslength; g++){
+                        if(ability_json.data[champ_name].spells[3].vars[g] != undefined){
+                            if(ability_json.data[champ_name].spells[3].vars[g].key == a_array[k]){
+                                //str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
 
-                                        //setTimeout(getstats, 1000);
-                                        var scaling=document.getElementById("abilitypower").innerHTML;
-                                        scaling=scaling*json.data[champ_name].spells[3].vars[g].coeff;
-                                        console.log(scaling);
+                                //setTimeout(getstats, 1000);
+                                var scaling=document.getElementById("abilitypower").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[3].vars[g].coeff;
+                                console.log(scaling);
 
-                                        str = str.replace(a_array[k], scaling);
-                                    }
-                                }
+                                str = str.replace(a_array[k], scaling);
                             }
-                            
                         }
                     }
-                    ab_four_text.innerHTML = str;
-                    
-                    
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
                     
                 }
-            });
+            }
+            ab_four_text.innerHTML = str;
         }	
     }
 
@@ -1185,7 +1115,7 @@
                 var shop_id = shop_icon_string.concat(num);
                 
                 var shop_source = document.getElementById(shop_id);
-                shop_source.src = "icons/EmptyIcon_Item.png";
+                shop_source.src = "Pictures/emptyitemicon.png";
                 j++;
             }
 
@@ -1230,14 +1160,14 @@
         var four_src = iven_four.src;
         var five_src = iven_five.src;
 
-        var src_temp_zero = zero_src.substr(zero_src.length - 25, zero_src.length);
-        var src_temp_one = one_src.substr(one_src.length - 25, one_src.length);
-        var src_temp_two = two_src.substr(two_src.length - 25, two_src.length);
-        var src_temp_three = three_src.substr(three_src.length - 25, three_src.length);
-        var src_temp_four = four_src.substr(four_src.length - 25, four_src.length);
-        var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
+        var src_temp_zero = zero_src.substr(zero_src.length - 26, zero_src.length);
+        var src_temp_one = one_src.substr(one_src.length - 26, one_src.length);
+        var src_temp_two = two_src.substr(two_src.length - 26, two_src.length);
+        var src_temp_three = three_src.substr(three_src.length - 26, three_src.length);
+        var src_temp_four = four_src.substr(four_src.length - 26, four_src.length);
+        var src_temp_five = five_src.substr(five_src.length - 26, five_src.length);
         
-        var empty_item = "/icons/EmptyIcon_Item.png";
+        var empty_item = "Pictures/emptyitemicon.png";
         if((gold_temp[0] - item_cost) >= 0){
             if(src_temp_zero == empty_item){
                 iven_zero.src = clicked_image;
@@ -1330,7 +1260,7 @@
     function remove_inventory(){
         var inven_image = document.getElementById(this.id);
         var image_source = inven_image.src;
-        inven_image.src = "icons/EmptyIcon_Item.png";
+        inven_image.src = "Pictures/emptyitemicon.png";
 
         var gold_temp = [];
         var gold_totals = document.getElementsByClassName('goldamt');
@@ -1343,13 +1273,16 @@
         remove_id = remove_id.substr(remove_id.length - 8);
         remove_id = remove_id.slice(0,4);
         
-        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
-        
-        var item_cost;
-        item_cost = item_json.data[remove_id].gold.total;
-        
-        for(var i = 0; i < gold_totals.length; i++){
-            gold_totals[i].innerHTML = gold_temp[i] + item_cost;
+        var src_temp = image_source.substr(image_source.length - 26, image_source.length);
+        if(src_temp !== "Pictures/emptyitemicon.png"){
+            item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
+            
+            var item_cost;
+            item_cost = item_json.data[remove_id].gold.total;
+            
+            for(var i = 0; i < gold_totals.length; i++){
+                gold_totals[i].innerHTML = gold_temp[i] + item_cost;
+            }
         }
     }
 
@@ -1363,12 +1296,10 @@
         item_id = item_id.substr(item_id.length - 8);
         item_id = item_id.slice(0,4);
         
-        item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
-        
-        
-        var src_temp = image_source.substr(image_source.length - 25, image_source.length);
+        var src_temp = image_source.substr(image_source.length - 26, image_source.length);
 
-        if(src_temp != "/icons/EmptyIcon_Item.png"){
+        if(src_temp !== "Pictures/emptyitemicon.png"){
+            item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=5bafa309-a330-491a-aaae-49498b8ea57a";
             stats.innerHTML = "Gold: " + item_json.data[item_id].gold.total + '<br>' + item_json.data[item_id].description;
         }else{
             stats.innerHTML = "Empty Item Slot"
