@@ -870,7 +870,8 @@
         var shop_array = [];
         var item_info = [];
         var tag_info = [];
-        var shop_array_modified = [];
+        var shop_array_filtered = [];
+        var checked_boxes = [];
         
         for(var key in item_json.data){
             if(item_json.data.hasOwnProperty(key)){	
@@ -935,175 +936,232 @@
         var check_mana_regen = document.getElementById('mana_regen_filter').checked;
         var check_MS = document.getElementById('MS_filter').checked;
         
-        
-        for(k=0; k < shop_array.length; k++){
-            if(check_health == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'Health'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
+        if(check_health == true){
+            checked_boxes.push('Health');
         }
-        
-        for(k=0; k < shop_array.length; k++){
-            if(check_MR == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'SpellBlock'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
+        if(check_MR == true){
+            checked_boxes.push('SpellBlock');
         }
-        
-        for(k=0; k < shop_array.length; k++){
-            if(check_armor == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'Armor'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
+        if(check_armor == true){
+            checked_boxes.push('Armor');
         }
-        
-        for(k=0; k < shop_array.length; k++){
-            if(check_AD == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'Damage'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
+        if(check_AD == true){
+            checked_boxes.push('Damage');
+        }
+        if(check_AS == true){
+            checked_boxes.push('AttackSpeed');
+        }
+        if(check_crit == true){
+            checked_boxes.push('CriticalStrike');
+        }
+        if(check_lifesteal == true){
+            checked_boxes.push('LifeSteal');
+        }
+        if(check_AP == true){
+            checked_boxes.push('SpellDamage');
+        }
+        if(check_CDR == true){
+            checked_boxes.push('CooldownReduction');
+        }
+        if(check_mana == true){
+            checked_boxes.push('Mana');
+        }
+        if(check_mana_regen == true){
+            checked_boxes.push('ManaRegen');
+        }
+        if(check_MS == true){
         }
 
         for(k=0; k < shop_array.length; k++){
-            if(check_AS == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'AttackSpeed'){
-                        shop_array_modified.push(shop_array[k]);
+            var track = 0;
+            for(j=0; j < checked_boxes.length; j++){
+                for(var prop in tag_info[k]){
+                    if(checked_boxes[j] === tag_info[k][prop]){
+                        var track = track + 1;
                     }
-                    
                 }
             }
+            if(track === checked_boxes.length){
+                shop_array_filtered.push(shop_array[k]);
+            }
         }
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_health == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'Health'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
         
-        for(k=0; k < shop_array.length; k++){
-            if(check_crit == true){
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_MR == false){
                 
-                for(var tem in tag_info[k]){
+                // for(var tem in tag_info[k]){
                     
-                    if(tag_info[k][tem] == 'CriticalStrike'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
+                    // if(tag_info[k][tem] == 'SpellBlock'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
                     
-                }
-            }
-        }
-
-        for(k=0; k < shop_array.length; k++){
-            if(check_lifesteal == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'LifeSteal'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
-        }
-
-        for(k=0; k < shop_array.length; k++){
-            if(check_AP == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'SpellDamage'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
-        }
+                // }
+            // }
+        // }
         
-        for(k=0; k < shop_array.length; k++){
-            if(check_CDR == true){
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_armor == false){
                 
-                for(var tem in tag_info[k]){
+                // for(var tem in tag_info[k]){
                     
-                    if(tag_info[k][tem] == 'CooldownReduction'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
+                    // if(tag_info[k][tem] == 'Armor'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
                     
-                }
-            }
-        }
-
-        for(k=0; k < shop_array.length; k++){
-            if(check_mana == true){
-                
-                for(var tem in tag_info[k]){
-                    
-                    if(tag_info[k][tem] == 'Mana'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
-                    
-                }
-            }
-        }
+                // }
+            // }
+        // }
         
-        for(k=0; k < shop_array.length; k++){
-            if(check_mana_regen == true){
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_AD == false){
                 
-                for(var tem in tag_info[k]){
+                // for(var tem in tag_info[k]){
                     
-                    if(tag_info[k][tem] == 'ManaRegen'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
+                    // if(tag_info[k][tem] == 'Damage'){
+                        // shop_array.slice(k, 1)
+                        // k = k--;
+                    // }
                     
-                }
-            }
-        }
+                // }
+            // }
+        // }
+
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_AS == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'AttackSpeed'){
+                       // shop_array.slice(k, 1);
+                       // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
         
-        for(k=0; k < shop_array.length; k++){
-            if(check_MS == true){
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_crit == false){
                 
-                for(var tem in tag_info[k]){
+                // for(var tem in tag_info[k]){
                     
-                    if(tag_info[k][tem] == 'NonbootsMovement' || tag_info[k][tem] == 'Boots'){
-                        shop_array_modified.push(shop_array[k]);
-                    }
+                    // if(tag_info[k][tem] == 'CriticalStrike'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
                     
-                }
-            }
-        }
+                // }
+            // }
+        // }
 
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_lifesteal == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'LifeSteal'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
 
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_AP == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'SpellDamage'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
+        
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_CDR == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'CooldownReduction'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
 
-            
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_mana == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'Mana'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
+        
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_mana_regen == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'ManaRegen'){
+                        // shop_array.slice(k, 1);
+                        // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
+        
+        // for(k=0; k < shop_array.length; k++){
+            // if(check_MS == false){
+                
+                // for(var tem in tag_info[k]){
+                    
+                    // if(tag_info[k][tem] == 'NonbootsMovement' || tag_info[k][tem] == 'Boots'){
+                       // shop_array_modified.slice(k, 1);
+                       // k = k--;
+                    // }
+                    
+                // }
+            // }
+        // }
         
         j=0;
         for(i=0; i<72; i++){
-            if(shop_array_modified[j] != undefined){
+            if(shop_array_filtered[j] != undefined){
+                console.log(shop_array_filtered[j])
                 var num = i.toString();
                 var shop_icon_string = "shop_icon"
                 var shop_id = shop_icon_string.concat(num);
                 var item_url = "https://ddragon.leagueoflegends.com/cdn/6.10.1/img/item/";
-                var temp = shop_array_modified[j];
+                var temp = shop_array_filtered[j];
                 var mid_shop_array = temp.concat(".png");
                 
                 var shop_source = document.getElementById(shop_id);

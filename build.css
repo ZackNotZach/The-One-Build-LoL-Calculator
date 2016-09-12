@@ -22,9 +22,9 @@
     float: left;
     padding: 15px;
 }
-.col-1 {width: 13%;}
-.col-2 {width: 74%;}
-.col-3 {width: 13%;}
+.col-1 {width: 14%;}
+.col-2 {width: 81%;}
+.col-3 {width: 5%;}
 
 /*Text Box Styling*/
 input:focus{
@@ -269,9 +269,8 @@ div.navigation{
 	opacity: 0.8;
 }
 
-.navbar ul{
-	list-style-type: none;
-	text-align: right;
+.navbar {
+	text-align: left;
 	font-family: Sorry Not Sorry;
 	font-size: 16px;
 	color: #ffffff;
