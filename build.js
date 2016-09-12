@@ -970,14 +970,21 @@
             checked_boxes.push('ManaRegen');
         }
         if(check_MS == true){
+            checked_boxes.push('MoveSpeed')
         }
 
         for(k=0; k < shop_array.length; k++){
             var track = 0;
             for(j=0; j < checked_boxes.length; j++){
                 for(var prop in tag_info[k]){
-                    if(checked_boxes[j] === tag_info[k][prop]){
-                        var track = track + 1;
+                    if(checked_boxes[j] !== 'MoveSpeed'){
+                        if(checked_boxes[j] === tag_info[k][prop]){
+                            track = track + 1;
+                        }
+                    } else {
+                        if(tag_info[k][prop] === 'NonbootsMovement' || tag_info[k][prop] == 'Boots'){
+                            track = track + 1;  
+                        }
                     }
                 }
             }
