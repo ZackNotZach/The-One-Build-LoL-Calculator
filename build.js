@@ -1262,6 +1262,60 @@
             for(var i = 0; i < gold_totals.length; i++){
                 gold_totals[i].innerHTML = gold_temp[i] - item_cost;
             }
+
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatArmorMod')){
+                console.log(item_json.data[item_id].stats.FlatArmorMod);
+                document.getElementById('armor').innerHTML = Number(document.getElementById('armor').innerHTML) + item_json.data[item_id].stats.FlatArmorMod;
+            }
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatHPPoolMod')){
+                document.getElementById('health').innerHTML = Number(document.getElementById('health').innerHTML) + item_json.data[item_id].stats.FlatHPPoolMod;
+            }
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatMPPoolMod')){
+                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) + item_json.data[item_id].stats.FlatMPPoolMod;
+            }
+
+            //base percent modifications
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatHPRegenMod')){
+                document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML) + item_json.data[item_id].stats.FlatHPRegenMod;
+            }
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatMPRegenMod')){
+                document.getElementById('manaregen').innerHTML = Number(document.getElementById('manaregen').innerHTML) + item_json.data[item_id].stats.FlatMPRegenMod;
+            }*/
+
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatPhysicalDamageMod')){
+                document.getElementById('attackdamage').innerHTML = Number(document.getElementById('attackdamage').innerHTML) + item_json.data[item_id].stats.FlatPhysicalDamageMod;
+            }
+
+            //attack speed
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMPPoolMod')){
+                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) + item_json.data[item_id].stats.FlatMPPoolMod;
+            }*/
+
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatCritChanceMod')){
+                document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML) + item_json.data[item_id].stats.FlatCritChanceMod;
+            }
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
+            }
+
+            //penetration and cooldown reduction values are not given in the stats table, even those that aren't unique passives
+            //could just grab the stats from the sanitized description
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
+            }*/
+
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatMovementSpeedMod')){
+                document.getElementById('movespeed').innerHTML = Number(document.getElementById('movespeed').innerHTML) + item_json.data[item_id].stats.FlatMovementSpeedMod;
+            }
+
+            //percent movespeed
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
+            }*/
+
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatSpellBlockMod')){
+                document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML) + item_json.data[item_id].stats.FlatSpellBlockMod;
+            }
         }
         
         
@@ -1340,6 +1394,59 @@
             
             for(var i = 0; i < gold_totals.length; i++){
                 gold_totals[i].innerHTML = gold_temp[i] + item_cost;
+            }
+
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatArmorMod')){
+                document.getElementById('armor').innerHTML = Number(document.getElementById('armor').innerHTML) - item_json.data[remove_id].stats.FlatArmorMod;
+            }
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatHPPoolMod')){
+                document.getElementById('health').innerHTML = Number(document.getElementById('health').innerHTML) - item_json.data[remove_id].stats.FlatHPPoolMod;
+            }
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatMPPoolMod')){
+                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) - item_json.data[remove_id].stats.FlatMPPoolMod;
+            }
+
+            //base percent modifications
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatHPRegenMod')){
+                document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML) + item_json.data[item_id].stats.FlatHPRegenMod;
+            }
+            if(item_json.data[item_id].stats.hasOwnProperty('FlatMPRegenMod')){
+                document.getElementById('manaregen').innerHTML = Number(document.getElementById('manaregen').innerHTML) + item_json.data[item_id].stats.FlatMPRegenMod;
+            }*/
+
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatPhysicalDamageMod')){
+                document.getElementById('attackdamage').innerHTML = Number(document.getElementById('attackdamage').innerHTML) - item_json.data[remove_id].stats.FlatPhysicalDamageMod;
+            }
+
+            //attack speed
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMPPoolMod')){
+                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) + item_json.data[item_id].stats.FlatMPPoolMod;
+            }*/
+
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatCritChanceMod')){
+                document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML) - item_json.data[remove_id].stats.FlatCritChanceMod;
+            }
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) - item_json.data[remove_id].stats.FlatMagicDamageMod;
+            }
+
+            //penetration and cooldown reduction values are not given in the stats table, even those that aren't unique passives
+            //could just grab the stats from the sanitized description
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
+            }*/
+
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatMovementSpeedMod')){
+                document.getElementById('movespeed').innerHTML = Number(document.getElementById('movespeed').innerHTML) - item_json.data[remove_id].stats.FlatMovementSpeedMod;
+            }
+
+            //percent movespeed
+            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
+            }*/
+
+            if(item_json.data[remove_id].stats.hasOwnProperty('FlatSpellBlockMod')){
+                document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML) - item_json.data[remove_id].stats.FlatSpellBlockMod;
             }
         }
     }
