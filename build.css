@@ -143,12 +143,26 @@ div.filterlist{
     margin-bottom: 25px;
     font-size: 16px;
     cursor: default;
-
 }
 .zerorune{
     border: 1px solid #f2f2f2;
 }
 .numRunes li{
+    display: inline;
+    border: 1px solid #666699;
+    padding: 2px;
+    background-color: #262626;
+}
+
+.levels ul{
+    list-style: none;
+    padding: 0;
+    margin-top: 3px;
+    margin-bottom: 25px;
+    font-size: 16px;
+    cursor: default;
+}
+.levels li{
     display: inline;
     border: 1px solid #666699;
     padding: 2px;
