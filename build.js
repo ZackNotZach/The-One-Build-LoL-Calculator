@@ -58,7 +58,14 @@
             rune_handlers[i].style.border = '1px solid #f2f2f2';
         }
     }
-    
+    var level_handlers = document.getElementsByClassName('levelselect');
+    for(var i = 0; i < level_handlers.length; i++){
+        level_handlers[i].id = 'levelselect' + i;
+        level_handlers[i].addEventListener('click', highlight_level);
+        if(level_handlers[i].innerHTML === '0'){
+            level_handlers[i].style.border = '1px solid #f2f2f2';
+        }
+    }
     
     //get the full item json from ddragon
     var item_json;
@@ -193,6 +200,20 @@
     var base_ms = 0;
     var base_mr = 0;
     var base_armor = 0;
+
+    var health_per_level = 0;
+    var mana_per_level = 0;
+    var ad_per_level = 0;
+    var manareg_per_level = 0;
+    var mr_per_level = 0;
+    var as_per_level = 0;
+    var healthreg_per_level = 0;
+    var armor_per_level = 0;
+    var attack_speed_offset = 0;
+
+    var attack_speed_offset_val = 0.625;
+
+    var level = 1;
 
     //get all the information from the api and display it
     get_base_stats();
@@ -373,12 +394,13 @@
 
     
     function update_stats(){
-        document.getElementById("health").innerHTML = (rune_health + rune_quint_health + item_health + base_health).toFixed(2);
-        document.getElementById("healthregen").innerHTML = (rune_healthreg + rune_quint_healthreg + item_healthreg + base_healthreg).toFixed(2);
-        document.getElementById("mana").innerHTML = (rune_mana + rune_quint_mana + item_mana + base_mana).toFixed(2);
-        document.getElementById("manaregen").innerHTML = (rune_manareg + rune_quint_manareg + item_manareg + base_manareg).toFixed(2);
-        document.getElementById("attackdamage").innerHTML = (rune_ad + item_ad + base_ad).toFixed(2);
-        document.getElementById("attackspeed").innerHTML = (rune_as + item_as).toFixed(2);
+        console.log(as_per_level);
+        document.getElementById("health").innerHTML = (rune_health + rune_quint_health + item_health + base_health + ((level-1) * health_per_level)).toFixed(2);
+        document.getElementById("healthregen").innerHTML = (rune_healthreg + rune_quint_healthreg + item_healthreg + base_healthreg + ((level-1) * healthreg_per_level)).toFixed(2);
+        document.getElementById("mana").innerHTML = (rune_mana + rune_quint_mana + item_mana + base_mana + ((level-1) * mana_per_level)).toFixed(2);
+        document.getElementById("manaregen").innerHTML = (rune_manareg + rune_quint_manareg + item_manareg + base_manareg + ((level-1) * manareg_per_level)).toFixed(2);
+        document.getElementById("attackdamage").innerHTML = (rune_ad + item_ad + base_ad + ((level-1) * ad_per_level)).toFixed(2);
+        document.getElementById("attackspeed").innerHTML = (rune_as + item_as + ((level-1) * as_per_level) + attack_speed_offset_val/(1 + attack_speed_offset)).toFixed(2);
         document.getElementById("criticalchance").innerHTML = (rune_crit + item_crit + base_crit).toFixed(2);
         document.getElementById("abilitypower").innerHTML = (rune_ap + rune_quint_ap + item_ap).toFixed(2);
         document.getElementById("magicpen").innerHTML = (rune_magpen + item_magpen).toFixed(2);
@@ -387,8 +409,8 @@
         document.getElementById("percentarmorpen").innerHTML = (rune_percentarmorpen + item_percentarmorpen).toFixed(2);
         document.getElementById("cooldownreduction").innerHTML = (rune_cdr + rune_quint_cdr + item_cdr).toFixed(2);
         document.getElementById("movespeed").innerHTML = (base_ms).toFixed(2);
-        document.getElementById("magicresist").innerHTML = (rune_mr + item_mr + base_mr).toFixed(2);
-        document.getElementById("armor").innerHTML = (rune_armor + rune_quint_armor + item_armor + base_armor).toFixed(2);
+        document.getElementById("magicresist").innerHTML = (rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2);
+        document.getElementById("armor").innerHTML = (rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2);
     }
 
     
@@ -427,25 +449,25 @@
                     }
                 }
                 
-                //document.getElementById("mpperlevel").value=stats.mpperlevel;
+                mana_per_level = Math.round(stats.mpperlevel);
                 base_mana = Math.round(stats.mp);
                 base_ad = Math.round(stats.attackdamage);
                 base_health = Math.round(stats.hp);
-                //document.getElementById("hpperlevel").value=stats.hpperlevel;
-                //document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
+                health_per_level = Math.round(stats.hpperlevel);
+                ad_per_level = Math.round(stats.attackdamageperlevel);
                 base_armor = Math.round(stats.armor);
-                //document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
+                manareg_per_level = Math.round(stats.mpregenperlevel);
                 base_healthreg = Math.round(stats.hpregen);
-                //document.getElementById("critperlevel").value=stats.critperlevel;
-                //document.getElementById("mrperlevel").value=stats.spellblockperlevel;
+                mr_per_level = Math.round(stats.spellblockperlevel);
                 base_manareg = Math.round(stats.mpregen);
-                //document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
+                as_per_level = Math.round(stats.attackspeedperlevel);
+                as_per_level = as_per_level/100;
                 base_mr = Math.round(stats.spellblock);
                 base_ms = Math.round(stats.movespeed);
                 base_critchance = Math.round(stats.crit);
-                //document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
-                //document.getElementById("armorperlevel").value=stats.armorperlevel;
-                //document.getElementById("attackspeedoffset").value=stats.attackspeedoffset;
+                healthreg_per_level = Math.round(stats.hpregenperlevel);
+                armor_per_level = Math.round(stats.armorperlevel);
+                attack_speed_offset = Math.round(stats.attackspeedoffset);
                 update_stats();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -453,7 +475,6 @@
             }
         });
     }
-    
 
     function change_passive(json){
         var champ_name = "";
@@ -1396,6 +1417,31 @@
             stats.innerHTML = "Empty Item Slot"
         }
     }
+
+    function highlight_level(){
+        var selected_level = document.getElementById(this.id);
+
+        if(selected_level.style.border !== '1px solid rgb(242, 242, 242)'){
+            selected_level.style.border = '1px solid #f2f2f2';
+            parent_ele = selected_level.parentElement
+            children_ele = parent_ele.childNodes
+            for(var index in children_ele){
+                if(children_ele[index] !== this && children_ele[index].nodeName !== '#text' && 
+                children_ele[index].nodeName !== undefined){
+                    children_ele[index].style.border = '1px solid #666699';
+                }
+            }     
+        }
+
+        var all_levels = document.getElementsByClassName('levelselect');
+            for(var i=0; i < all_levels.length; i++){
+                if(all_levels[i].style.border === '1px solid rgb(242, 242, 242)'){
+                level = Number(all_levels[i].innerHTML);
+            }
+        }
+
+        update_stats();
+    }
     
     function highlight_rune(){
         var selected_rune = document.getElementById(this.id);
@@ -1432,8 +1478,7 @@
                 children_ele[index].nodeName !== undefined){
                     children_ele[index].style.border = '1px solid #666699';
                 }
-            }
-            
+            }     
         }
         
         var mark_armorpen = '5253';
@@ -1468,7 +1513,7 @@
         var quint_ms = '5365';
         var quint_revival = '5366';
         var quint_spellvamp = '5409';
-        //json.data[key].stats.rFlatArmorPenetrationMod
+
         $.ajax({
             url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/rune?runeListData=all&api_key=59080bd8-1d31-44be-8a1e-3ecd9a372501',
             type: 'GET',
@@ -1547,6 +1592,7 @@
                         
                     }
                 }
+
                 update_stats();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
