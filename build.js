@@ -16,16 +16,93 @@
     var name = champion;
     var icon = document.getElementById('champicon');
     
-    //need to grab latest patch number and insert here
-    var icon_url = "https://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
-    var almost = name.concat(".png");
-    icon.src = icon_url.concat(almost);
+    //get the patch number from Riot API
+    var patch_num;
+    var item_json;
     
-    //splash art
-    var splash_url = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
-    almost = name.concat("_0.jpg");
-    splash_url = splash_url.concat(almost);
-    document.getElementById('bgimg').src = splash_url;
+    $.ajax({
+        url:  'https://theonebuild-env.us-west-2.elasticbeanstalk.com/patch/',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            
+        },
+        success: function (json) {
+            patch_num = json.v
+            
+            //get the full item json from ddragon
+            $.ajax({
+                url:  'https://ddragon.leagueoflegends.com/cdn/' + patch_num + '/data/en_US/item.json',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    
+                },
+                success: function (json) {
+                    item_json = json;
+                    console.log(json);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    
+                }
+            });
+
+            var icon_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/champion/";
+            var almost = name.concat(".png");
+            icon.src = icon_url.concat(almost);
+            
+            //splash art
+            var splash_url = "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/";
+            almost = name.concat("_0.jpg");
+            splash_url = splash_url.concat(almost);
+            document.getElementById('bgimg').src = splash_url;
+            
+            //get all the information from the api and display it
+            get_base_stats();
+            initializeShop();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            
+        }
+    });
+    
+    
+    //get the full champion json from Riot API
+    var passive_json;
+    $.ajax({
+        url:  'https://theonebuild-env.us-west-2.elasticbeanstalk.com/passive/',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            
+        },
+        success: function (json) {
+            passive_json = json;
+            change_passive(passive_json);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            
+        }
+    });
+    
+    var ability_json;
+    $.ajax({
+        url:  'https://theonebuild-env.us-west-2.elasticbeanstalk.com/spells/',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            
+        },
+        success: function (json) {
+            ability_json = json;
+            change_abilities(ability_json);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            
+        }
+    });
+    
+
 
     //Event Handlers
     document.getElementById('champsearch2form').addEventListener('submit', function(e) { on_search(e);});
@@ -66,62 +143,6 @@
             level_handlers[i].style.border = '1px solid #f2f2f2';
         }
     }
-    
-    //get the full item json from ddragon
-    var item_json;
-    
-    $.ajax({
-        url:  'https://ddragon.leagueoflegends.com/cdn/6.12.1/data/en_US/item.json',
-        type: 'GET',
-        dataType: 'json',
-        data: {
-            
-        },
-        success: function (json) {
-            item_json = json;
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            
-        }
-    });
-    
-    //get the patch number from Riot API
-    
-    
-    //get the full champion json from Riot API
-    var passive_json;
-    $.ajax({
-        url:  'https://theonebuild-env.us-west-2.elasticbeanstalk.com/passive/',
-        type: 'GET',
-        dataType: 'json',
-        data: {
-            
-        },
-        success: function (json) {
-            passive_json = json;
-            change_passive(passive_json);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            
-        }
-    });
-    
-    var ability_json;
-    $.ajax({
-        url:  'https://theonebuild-env.us-west-2.elasticbeanstalk.com/spells/',
-        type: 'GET',
-        dataType: 'json',
-        data: {
-            
-        },
-        success: function (json) {
-            ability_json = json;
-            change_abilities(ability_json);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            
-        }
-    });
     
     document.getElementById('passiveicon').addEventListener('click', clickPassive);
     document.getElementById('abilityoneicon').addEventListener('click', changeAbilityOne);
@@ -220,10 +241,6 @@
 
     var level = 1;
     var selected_ability = 0;
-
-    //get all the information from the api and display it
-    get_base_stats();
-    initializeShop();
     
     
     //Game Data Variables 59.4 44.4
@@ -281,7 +298,7 @@
 
     function initializeShop(){
         $.ajax({
-            url:  'https://ddragon.leagueoflegends.com/cdn/6.12.1/data/en_US/item.json',
+            url:  'https://ddragon.leagueoflegends.com/cdn/' + patch_num + '/data/en_US/item.json',
             type: 'GET',
             dataType: 'json',
             data: {
@@ -339,7 +356,7 @@
                     var num = i.toString();
                     var shop_icon_string = "shop_icon"
                     var shop_id = shop_icon_string.concat(num);
-                    var item_url = "https://ddragon.leagueoflegends.com/cdn/6.10.1/img/item/";
+                    var item_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/item/";
                     var temp = shop_array[j];
                     
                     var mid_shop_array = temp.concat(".png");
@@ -375,7 +392,7 @@
         var icon = document.getElementById('champicon');
         
         //need to grab latest patch number and insert here
-        var icon_url = "https://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+        var icon_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/champion/";
         var almost = name.concat(".png");
         icon.src = icon_url.concat(almost);
         
@@ -415,20 +432,10 @@
         document.getElementById("armorpen").innerHTML = Math.round((rune_armorpen + rune_hy_armorpen + item_armorpen));
         document.getElementById("percentarmorpen").innerHTML = Math.round((rune_percentarmorpen + item_percentarmorpen).toFixed(2));
         document.getElementById("cooldownreduction").innerHTML = Math.round((rune_cdr + rune_quint_cdr + item_cdr).toFixed(2));
-        document.getElementById("movespeed").innerHTML = Math.round((base_ms).toFixed(2));
+        document.getElementById("movespeed").innerHTML = Math.round(base_ms + (base_ms *(rune_quint_ms + item_ms)));
         document.getElementById("magicresist").innerHTML = Math.round((rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2));
         document.getElementById("armor").innerHTML = Math.round((rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2));
-
-        document.getElementById("criticalchance").innerHTML = (rune_crit + item_crit + base_crit).toFixed(2);
-        document.getElementById("abilitypower").innerHTML = (rune_ap + rune_quint_ap + item_ap).toFixed(2);
-        document.getElementById("magicpen").innerHTML = (rune_magpen + item_magpen).toFixed(2);
-        document.getElementById("percentmagicpen").innerHTML = (rune_percentmagpen + item_percentmagpen).toFixed(2);
-        document.getElementById("armorpen").innerHTML = (rune_armorpen + item_armorpen).toFixed(2);
-        document.getElementById("percentarmorpen").innerHTML = (rune_percentarmorpen + item_percentarmorpen).toFixed(2);
-        document.getElementById("cooldownreduction").innerHTML = (rune_cdr + rune_quint_cdr + item_cdr).toFixed(2);
-        document.getElementById("movespeed").innerHTML = (base_ms).toFixed(2);
-        document.getElementById("magicresist").innerHTML = (rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2);
-        document.getElementById("armor").innerHTML = (rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2);
+        
 
         if(selected_ability == 1){
             changeAbilityOne();
@@ -461,7 +468,7 @@
         var champname_nospaces = champ_name.replace(" ", "");
         champname_nospaces = champname_nospaces.toLowerCase().trim();
         $.ajax({
-            url:  'https://ddragon.leagueoflegends.com/cdn/6.12.1/data/en_US/champion.json',
+            url:  'https://ddragon.leagueoflegends.com/cdn/' + patch_num + '/data/en_US/champion.json',
             type: 'GET',
             dataType: 'json',
             data: {
@@ -529,7 +536,7 @@
             
             var passive = document.getElementById('passiveicon');
             
-            var passive_url = "https://ddragon.leagueoflegends.com/cdn/5.23.1/img/passive/";
+            var passive_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/passive/";
             var almost_two = pass.concat(".png");
             passive.src = passive_url.concat(pass);
             
@@ -563,7 +570,7 @@
         
         
         
-        var ability_url = "https://ddragon.leagueoflegends.com/cdn/5.23.1/img/spell/"
+        var ability_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/spell/"
         var ab_one = document.getElementById('abilityoneicon');
         var ab_two = document.getElementById('abilitytwoicon');
         var ab_three = document.getElementById('abilitythreeicon');
@@ -1198,7 +1205,7 @@
                 var num = i.toString();
                 var shop_icon_string = "shop_icon"
                 var shop_id = shop_icon_string.concat(num);
-                var item_url = "https://ddragon.leagueoflegends.com/cdn/6.10.1/img/item/";
+                var item_url = "https://ddragon.leagueoflegends.com/cdn/" + patch_num + "/img/item/";
                 var temp = shop_array_filtered[j];
                 var mid_shop_array = temp.concat(".png");
                 
@@ -1646,7 +1653,7 @@
                         } else if(all_runes[i].parentElement.parentElement.id === 'abilityPowerGlyphs'){
                             rune_ap = rune_amount * json.data[glyph_ap].stats.FlatMagicDamageMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'cooldownReductionGlyphs'){
-                            rune_cdr = rune_amount * json.data[glyph_cdr].stats.rPercentCooldownMod * 100;
+                            rune_cdr = rune_amount * json.data[glyph_cdr].stats.rPercentCooldownMod * -100;
                         } else if(all_runes[i].parentElement.parentElement.id === 'energyGlyphs'){
                             
                         } else if(all_runes[i].parentElement.parentElement.id === 'manaGlyphs'){
@@ -1658,7 +1665,7 @@
                         } else if(all_runes[i].parentElement.parentElement.id === 'armorQuints'){
                             rune_quint_armor = rune_amount * json.data[quint_armor].stats.FlatArmorMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'cooldownReductionQuints'){
-                            rune_quint_cdr = rune_amount * json.data[quint_cdr].stats.rPercentCooldownMod * 100;
+                            rune_quint_cdr = rune_amount * json.data[quint_cdr].stats.rPercentCooldownMod * -100;
                         } else if(all_runes[i].parentElement.parentElement.id === 'goldQuints'){
                             rune_quint_gold = rune_amount * json.data[quint_gold].stats.rFlatGoldPer10Mod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'healthQuints'){
@@ -1676,7 +1683,7 @@
                         } else if(all_runes[i].parentElement.parentElement.id === 'lifestealQuints'){
                             rune_quint_lifesteal = rune_amount * json.data[quint_lifesteal].stats.PercentLifeStealMod * 100;
                         } else if(all_runes[i].parentElement.parentElement.id === 'movespeedQuints'){
-                            rune_quint_ms = rune_amount * json.data[quint_ms].stats.PercentMovementSpeedMod * 100;
+                            rune_quint_ms = rune_amount * json.data[quint_ms].stats.PercentMovementSpeedMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'revivalQuints'){
 
                         } else if(all_runes[i].parentElement.parentElement.id === 'spellvampQuints'){
