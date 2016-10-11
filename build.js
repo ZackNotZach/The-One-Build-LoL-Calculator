@@ -219,6 +219,7 @@
     var attack_speed_offset_val = 0.625;
 
     var level = 1;
+    var selected_ability = 0;
 
     //get all the information from the api and display it
     get_base_stats();
@@ -406,6 +407,7 @@
         document.getElementById("manaregen").innerHTML = Math.round((rune_manareg + rune_quint_manareg + item_manareg + base_manareg + ((level-1) * manareg_per_level)).toFixed(2));
         document.getElementById("attackdamage").innerHTML = Math.round((rune_ad + item_ad + base_ad + ((level-1) * ad_per_level)).toFixed(2));
         document.getElementById("attackspeed").innerHTML = (rune_as + item_as + ((level-1) * as_per_level) + attack_speed_offset_val/(1 + attack_speed_offset)).toFixed(2);
+<<<<<<< HEAD
         document.getElementById("criticalchance").innerHTML = Math.round((rune_crit + item_crit + base_crit).toFixed(2));
         document.getElementById("abilitypower").innerHTML = Math.round((rune_ap + rune_quint_ap + item_ap).toFixed(2));
         document.getElementById("magicpen").innerHTML = Math.round((rune_magpen + rune_hy_magpen + item_magpen));
@@ -416,6 +418,34 @@
         document.getElementById("movespeed").innerHTML = Math.round((base_ms).toFixed(2));
         document.getElementById("magicresist").innerHTML = Math.round((rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2));
         document.getElementById("armor").innerHTML = Math.round((rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2));
+=======
+        document.getElementById("criticalchance").innerHTML = (rune_crit + item_crit + base_crit).toFixed(2);
+        document.getElementById("abilitypower").innerHTML = (rune_ap + rune_quint_ap + item_ap).toFixed(2);
+        document.getElementById("magicpen").innerHTML = (rune_magpen + item_magpen).toFixed(2);
+        document.getElementById("percentmagicpen").innerHTML = (rune_percentmagpen + item_percentmagpen).toFixed(2);
+        document.getElementById("armorpen").innerHTML = (rune_armorpen + item_armorpen).toFixed(2);
+        document.getElementById("percentarmorpen").innerHTML = (rune_percentarmorpen + item_percentarmorpen).toFixed(2);
+        document.getElementById("cooldownreduction").innerHTML = (rune_cdr + rune_quint_cdr + item_cdr).toFixed(2);
+        document.getElementById("movespeed").innerHTML = (base_ms).toFixed(2);
+        document.getElementById("magicresist").innerHTML = (rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2);
+        document.getElementById("armor").innerHTML = (rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2);
+
+        if(selected_ability == 1){
+            changeAbilityOne();
+        }
+
+        if(selected_ability == 2){
+            changeAbilityTwo();
+        }
+
+        if(selected_ability == 3){
+            changeAbilityThree();
+        }
+
+        if(selected_ability == 4){
+            changeAbilityFour();
+        }
+>>>>>>> 7124964626d1ffbfc3f8fbd4bab310522d4569d5
     }
 
     
@@ -576,6 +606,7 @@
     }
             
     function changeAbilityOne(){
+        selected_ability = 1;
         var champ_name = "";
         champ_name = $("#champsearch2").val();
         var re = /(\b[a-z](?!\s))/g; 
@@ -630,9 +661,20 @@
             if(f_array != null){
                 for(j=0; j < f_array.length; j++){
                     for(h=0; h < varslength; h++){
-                        if(json.data[champ_name].spells[0].vars[h] != undefined){
-                            if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
-                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[0].vars[h].coeff);
+                        if(ability_json.data[champ_name].spells[3].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+                                //str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
+
+                                var scaling=document.getElementById("attackdamage").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[0].vars[h].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
+                                console.log(scaling);
+                                console.log(f_array[j]);
+
+                                console.log(str);
+                                str = str.replace(f_array[j], scaling);
+                                console.log(str);
                             }
                         }
                     }
@@ -652,6 +694,8 @@
 
                                 var scaling=document.getElementById("abilitypower").innerHTML;
                                 scaling=scaling*ability_json.data[champ_name].spells[0].vars[g].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
                                 console.log(scaling);
 
                                 str = str.replace(a_array[k], scaling);
@@ -665,6 +709,7 @@
         }
     }	
     function changeAbilityTwo(){
+        selected_ability = 2;
         var champ_name = "";
         champ_name = $("#champsearch2").val();
         var re = /(\b[a-z](?!\s))/g; 
@@ -721,9 +766,20 @@
             if(f_array != null){
                 for(j=0; j < f_array.length; j++){
                     for(h=0; h < varslength; h++){
-                        if(ability_json.data[champ_name].spells[1].vars[h] != undefined){
-                            if(ability_json.data[champ_name].spells[1].vars[h].key == f_array[j]){
-                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[1].vars[h].coeff);
+                        if(ability_json.data[champ_name].spells[3].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+                                //str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
+
+                                var scaling=document.getElementById("attackdamage").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[1].vars[h].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
+                                console.log(scaling);
+                                console.log(f_array[j]);
+
+                                console.log(str);
+                                str = str.replace(f_array[j], scaling);
+                                console.log(str);
                             }
                         }
                     }
@@ -731,7 +787,6 @@
             }
             
             if(a_array != null){
-                
                 for(k=0; k < a_array.length; k++){
                     for(g=0; g < varslength; g++){
                         if(ability_json.data[champ_name].spells[1].vars[g] != undefined){
@@ -740,19 +795,21 @@
 
                                 var scaling=document.getElementById("abilitypower").innerHTML;
                                 scaling=scaling*ability_json.data[champ_name].spells[1].vars[g].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
                                 console.log(scaling);
 
                                 str = str.replace(a_array[k], scaling);
                             }
                         }
-                    }
-                    
+                    } 
                 }
             }
             ab_two_text.innerHTML = str;
         }
     }	
     function changeAbilityThree(){
+        selected_ability = 3;
         var champ_name = "";
         champ_name = $("#champsearch2").val();
         var re = /(\b[a-z](?!\s))/g; 
@@ -808,9 +865,20 @@
             if(f_array != null){
                 for(j=0; j < f_array.length; j++){
                     for(h=0; h < varslength; h++){
-                        if(ability_json.data[champ_name].spells[2].vars[h] != undefined){
-                            if(ability_json.data[champ_name].spells[2].vars[h].key == f_array[j]){
-                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[2].vars[h].coeff);
+                        if(ability_json.data[champ_name].spells[3].vars[h] != undefined){
+                            if(ability_json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+                                //str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
+
+                                var scaling=document.getElementById("attackdamage").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[2].vars[h].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
+                                console.log(scaling);
+                                console.log(f_array[j]);
+
+                                console.log(str);
+                                str = str.replace(f_array[j], scaling);
+                                console.log(str);
                             }
                         }
                     }
@@ -818,7 +886,6 @@
             }
             
             if(a_array != null){
-                
                 for(k=0; k < a_array.length; k++){
                     for(g=0; g < varslength; g++){
                         if(ability_json.data[champ_name].spells[2].vars[g] != undefined){
@@ -828,6 +895,8 @@
                                 //setTimeout(getstats, 1000);
                                 var scaling=document.getElementById("abilitypower").innerHTML;
                                 scaling=scaling*ability_json.data[champ_name].spells[2].vars[g].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
                                 console.log(scaling);
 
                                 str = str.replace(a_array[k], scaling);
@@ -837,10 +906,12 @@
                     
                 }
             }
+
             ab_three_text.innerHTML = str;
         }
     }	
     function changeAbilityFour(){
+        selected_ability = 4;
         var champ_name = "";
         champ_name = $("#champsearch2").val();
         var re = /(\b[a-z](?!\s))/g; 
@@ -898,7 +969,18 @@
                     for(h=0; h < varslength; h++){
                         if(ability_json.data[champ_name].spells[3].vars[h] != undefined){
                             if(ability_json.data[champ_name].spells[3].vars[h].key == f_array[j]){
-                                str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
+                                //str = str.replace(f_array[j] , ability_json.data[champ_name].spells[3].vars[h].coeff);
+
+                                var scaling=document.getElementById("attackdamage").innerHTML;
+                                scaling=scaling*ability_json.data[champ_name].spells[3].vars[h].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
+                                console.log(scaling);
+                                console.log(f_array[j]);
+
+                                console.log(str);
+                                str = str.replace(f_array[j], scaling);
+                                console.log(str);
                             }
                         }
                     }
@@ -906,7 +988,6 @@
             }
             
             if(a_array != null){
-                
                 for(k=0; k < a_array.length; k++){
                     for(g=0; g < varslength; g++){
                         if(ability_json.data[champ_name].spells[3].vars[g] != undefined){
@@ -916,9 +997,13 @@
                                 //setTimeout(getstats, 1000);
                                 var scaling=document.getElementById("abilitypower").innerHTML;
                                 scaling=scaling*ability_json.data[champ_name].spells[3].vars[g].coeff;
+                                scaling = Number(scaling);
+                                Math.round(scaling);
                                 console.log(scaling);
 
+                                console.log(str);
                                 str = str.replace(a_array[k], scaling);
+                                console.log(str);
                             }
                         }
                     }
@@ -941,7 +1026,11 @@
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('gamedatabuffs').style.display = 'none';
+<<<<<<< HEAD
         //document.getElementById('datadescription').style.display = 'none';
+=======
+        document.getElementById('datadescription').style.display = 'none';
+>>>>>>> 7124964626d1ffbfc3f8fbd4bab310522d4569d5
         //document.getElementById('datadescription').style.display = 'none';
         document.getElementById('gold1').style.display = 'none';
         document.getElementById('gold2').style.display = 'none';
@@ -1227,8 +1316,11 @@
             }
 
             //base percent modifications
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatHPRegenMod')){
-                document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML) + item_json.data[item_id].stats.FlatHPRegenMod;
+            //probably just gonna have to get numbers from the description
+            /*if(item_json.data[item_id].stats.hasOwnProperty('PercentHPRegenMod')){
+               //document.getElementById('healthregen').innerHTML = Number(document.getElementById('healthregen').innerHTML) + item_json.data[item_id].stats.FlatHPRegenMod;
+               console.log("woo");
+               document.getElementById('healthregen').innerHTML = base_healthreg + (item_json.data[item_id].stats.FlatHPRegenMod * base_healthreg);
             }
             if(item_json.data[item_id].stats.hasOwnProperty('FlatMPRegenMod')){
                 document.getElementById('manaregen').innerHTML = Number(document.getElementById('manaregen').innerHTML) + item_json.data[item_id].stats.FlatMPRegenMod;
@@ -1239,9 +1331,9 @@
             }
 
             //attack speed
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMPPoolMod')){
-                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) + item_json.data[item_id].stats.FlatMPPoolMod;
-            }*/
+            if(item_json.data[item_id].stats.hasOwnProperty('PercentAttackSpeedMod')){
+                document.getElementById('attackspeed').innerHTML = Number(document.getElementById('attackspeed').innerHTML) + item_json.data[item_id].stats.PercentAttackSpeedMod;
+            }
 
             if(item_json.data[item_id].stats.hasOwnProperty('FlatCritChanceMod')){
                 document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML) + item_json.data[item_id].stats.FlatCritChanceMod;
@@ -1261,9 +1353,9 @@
             }
 
             //percent movespeed
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
-                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
-            }*/
+            if(item_json.data[item_id].stats.hasOwnProperty('PercentMovementSpeedMod')){
+                document.getElementById('movespeed').innerHTML = Number(document.getElementById('movespeed').innerHTML) + (Number(document.getElementById('movespeed').innerHTML) * item_json.data[item_id].stats.PercentMovementSpeedMod);
+            }
 
             if(item_json.data[item_id].stats.hasOwnProperty('FlatSpellBlockMod')){
                 document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML) + item_json.data[item_id].stats.FlatSpellBlockMod;
@@ -1371,31 +1463,29 @@
             }
 
             //attack speed
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMPPoolMod')){
-                document.getElementById('mana').innerHTML = Number(document.getElementById('mana').innerHTML) + item_json.data[item_id].stats.FlatMPPoolMod;
-            }*/
+            if(item_json.data[remove_id].stats.hasOwnProperty('PercentAttackSpeedMod')){
+                document.getElementById('attackspeed').innerHTML = Number(document.getElementById('attackspeed').innerHTML) - item_json.data[remove_id].stats.PercentAttackSpeedMod;
+            }
 
             if(item_json.data[remove_id].stats.hasOwnProperty('FlatCritChanceMod')){
                 document.getElementById('criticalchance').innerHTML = Number(document.getElementById('criticalchance').innerHTML) - item_json.data[remove_id].stats.FlatCritChanceMod;
             }
             if(item_json.data[remove_id].stats.hasOwnProperty('FlatMagicDamageMod')){
+                console.log("woo");
                 document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) - item_json.data[remove_id].stats.FlatMagicDamageMod;
             }
 
             //penetration and cooldown reduction values are not given in the stats table, even those that aren't unique passives
             //could just grab the stats from the sanitized description
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
-                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
-            }*/
 
             if(item_json.data[remove_id].stats.hasOwnProperty('FlatMovementSpeedMod')){
                 document.getElementById('movespeed').innerHTML = Number(document.getElementById('movespeed').innerHTML) - item_json.data[remove_id].stats.FlatMovementSpeedMod;
             }
 
             //percent movespeed
-            /*if(item_json.data[item_id].stats.hasOwnProperty('FlatMagicDamageMod')){
-                document.getElementById('abilitypower').innerHTML = Number(document.getElementById('abilitypower').innerHTML) + item_json.data[item_id].stats.FlatMagicDamageMod;
-            }*/
+            if(item_json.data[remove_id].stats.hasOwnProperty('PercentMovementSpeedMod')){
+                document.getElementById('movespeed').innerHTML = Number(document.getElementById('movespeed').innerHTML) - (Number(document.getElementById('movespeed').innerHTML) * item_json.data[remove_id].stats.PercentMovementSpeedMod);
+            }
 
             if(item_json.data[remove_id].stats.hasOwnProperty('FlatSpellBlockMod')){
                 document.getElementById('magicresist').innerHTML = Number(document.getElementById('magicresist').innerHTML) - item_json.data[remove_id].stats.FlatSpellBlockMod;
