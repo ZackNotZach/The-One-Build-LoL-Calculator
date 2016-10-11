@@ -407,7 +407,7 @@
         document.getElementById("manaregen").innerHTML = Math.round((rune_manareg + rune_quint_manareg + item_manareg + base_manareg + ((level-1) * manareg_per_level)).toFixed(2));
         document.getElementById("attackdamage").innerHTML = Math.round((rune_ad + item_ad + base_ad + ((level-1) * ad_per_level)).toFixed(2));
         document.getElementById("attackspeed").innerHTML = (rune_as + item_as + ((level-1) * as_per_level) + attack_speed_offset_val/(1 + attack_speed_offset)).toFixed(2);
-<<<<<<< HEAD
+
         document.getElementById("criticalchance").innerHTML = Math.round((rune_crit + item_crit + base_crit).toFixed(2));
         document.getElementById("abilitypower").innerHTML = Math.round((rune_ap + rune_quint_ap + item_ap).toFixed(2));
         document.getElementById("magicpen").innerHTML = Math.round((rune_magpen + rune_hy_magpen + item_magpen));
@@ -418,7 +418,7 @@
         document.getElementById("movespeed").innerHTML = Math.round((base_ms).toFixed(2));
         document.getElementById("magicresist").innerHTML = Math.round((rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2));
         document.getElementById("armor").innerHTML = Math.round((rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2));
-=======
+
         document.getElementById("criticalchance").innerHTML = (rune_crit + item_crit + base_crit).toFixed(2);
         document.getElementById("abilitypower").innerHTML = (rune_ap + rune_quint_ap + item_ap).toFixed(2);
         document.getElementById("magicpen").innerHTML = (rune_magpen + item_magpen).toFixed(2);
@@ -445,7 +445,7 @@
         if(selected_ability == 4){
             changeAbilityFour();
         }
->>>>>>> 7124964626d1ffbfc3f8fbd4bab310522d4569d5
+
     }
 
     
@@ -1026,11 +1026,8 @@
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('gamedatabuffs').style.display = 'none';
-<<<<<<< HEAD
         //document.getElementById('datadescription').style.display = 'none';
-=======
-        document.getElementById('datadescription').style.display = 'none';
->>>>>>> 7124964626d1ffbfc3f8fbd4bab310522d4569d5
+
         //document.getElementById('datadescription').style.display = 'none';
         document.getElementById('gold1').style.display = 'none';
         document.getElementById('gold2').style.display = 'none';
