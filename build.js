@@ -330,7 +330,7 @@
                     }
                 }
                 j=0;
-                for(i=0; i<72; i++){
+                for(i=0; i<56; i++){
                     var num = i.toString();
                     var shop_icon_string = "shop_icon"
                     var shop_id = shop_icon_string.concat(num);
@@ -1173,7 +1173,7 @@
         }
 
         j=0;
-        for(i=0; i<72; i++){
+        for(i=0; i<56; i++){
             if(shop_array_filtered[j] != undefined){
                 console.log(shop_array_filtered[j])
                 var num = i.toString();
