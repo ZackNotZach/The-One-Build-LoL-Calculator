@@ -85,6 +85,9 @@
         }
     });
     
+    //get the patch number from Riot API
+    
+    
     //get the full champion json from Riot API
     var passive_json;
     $.ajax({
@@ -143,7 +146,7 @@
     //Variables for tracking the stats
     var rune_health = 0;
     var rune_healthreg = 0;
-    var rune_healthpercent = 0;
+    var rune_percenthealth = 0;
     var rune_mana = 0;
     var rune_manareg = 0;
     var rune_ad = 0;
@@ -151,8 +154,10 @@
     var rune_crit = 0;
     var rune_ap = 0;
     var rune_magpen = 0;
+    var rune_hy_magpen = 0;
     var rune_percentmagpen = 0;
     var rune_armorpen = 0;
+    var rune_hy_armorpen = 0;
     var rune_percentarmorpen = 0;
     var rune_cdr = 0;
     var rune_percentms = 0;
@@ -395,22 +400,22 @@
     
     function update_stats(){
         console.log(as_per_level);
-        document.getElementById("health").innerHTML = (rune_health + rune_quint_health + item_health + base_health + ((level-1) * health_per_level)).toFixed(2);
-        document.getElementById("healthregen").innerHTML = (rune_healthreg + rune_quint_healthreg + item_healthreg + base_healthreg + ((level-1) * healthreg_per_level)).toFixed(2);
-        document.getElementById("mana").innerHTML = (rune_mana + rune_quint_mana + item_mana + base_mana + ((level-1) * mana_per_level)).toFixed(2);
-        document.getElementById("manaregen").innerHTML = (rune_manareg + rune_quint_manareg + item_manareg + base_manareg + ((level-1) * manareg_per_level)).toFixed(2);
-        document.getElementById("attackdamage").innerHTML = (rune_ad + item_ad + base_ad + ((level-1) * ad_per_level)).toFixed(2);
+        document.getElementById("health").innerHTML = Math.round((rune_health + rune_quint_health + item_health + base_health + ((level-1) * health_per_level)) + ((rune_health + rune_quint_health + item_health + base_health + ((level-1) * health_per_level)) * (rune_percenthealth + rune_quint_percenthealth)));
+        document.getElementById("healthregen").innerHTML = Math.round((rune_healthreg + rune_quint_healthreg + item_healthreg + base_healthreg + ((level-1) * healthreg_per_level)).toFixed(2));
+        document.getElementById("mana").innerHTML = Math.round((rune_mana + rune_quint_mana + item_mana + base_mana + ((level-1) * mana_per_level)).toFixed(2));
+        document.getElementById("manaregen").innerHTML = Math.round((rune_manareg + rune_quint_manareg + item_manareg + base_manareg + ((level-1) * manareg_per_level)).toFixed(2));
+        document.getElementById("attackdamage").innerHTML = Math.round((rune_ad + item_ad + base_ad + ((level-1) * ad_per_level)).toFixed(2));
         document.getElementById("attackspeed").innerHTML = (rune_as + item_as + ((level-1) * as_per_level) + attack_speed_offset_val/(1 + attack_speed_offset)).toFixed(2);
-        document.getElementById("criticalchance").innerHTML = (rune_crit + item_crit + base_crit).toFixed(2);
-        document.getElementById("abilitypower").innerHTML = (rune_ap + rune_quint_ap + item_ap).toFixed(2);
-        document.getElementById("magicpen").innerHTML = (rune_magpen + item_magpen).toFixed(2);
-        document.getElementById("percentmagicpen").innerHTML = (rune_percentmagpen + item_percentmagpen).toFixed(2);
-        document.getElementById("armorpen").innerHTML = (rune_armorpen + item_armorpen).toFixed(2);
-        document.getElementById("percentarmorpen").innerHTML = (rune_percentarmorpen + item_percentarmorpen).toFixed(2);
-        document.getElementById("cooldownreduction").innerHTML = (rune_cdr + rune_quint_cdr + item_cdr).toFixed(2);
-        document.getElementById("movespeed").innerHTML = (base_ms).toFixed(2);
-        document.getElementById("magicresist").innerHTML = (rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2);
-        document.getElementById("armor").innerHTML = (rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2);
+        document.getElementById("criticalchance").innerHTML = Math.round((rune_crit + item_crit + base_crit).toFixed(2));
+        document.getElementById("abilitypower").innerHTML = Math.round((rune_ap + rune_quint_ap + item_ap).toFixed(2));
+        document.getElementById("magicpen").innerHTML = Math.round((rune_magpen + rune_hy_magpen + item_magpen));
+        document.getElementById("percentmagicpen").innerHTML = Math.round((rune_percentmagpen + item_percentmagpen).toFixed(2));
+        document.getElementById("armorpen").innerHTML = Math.round((rune_armorpen + rune_hy_armorpen + item_armorpen));
+        document.getElementById("percentarmorpen").innerHTML = Math.round((rune_percentarmorpen + item_percentarmorpen).toFixed(2));
+        document.getElementById("cooldownreduction").innerHTML = Math.round((rune_cdr + rune_quint_cdr + item_cdr).toFixed(2));
+        document.getElementById("movespeed").innerHTML = Math.round((base_ms).toFixed(2));
+        document.getElementById("magicresist").innerHTML = Math.round((rune_mr + item_mr + base_mr + ((level-1) * mr_per_level)).toFixed(2));
+        document.getElementById("armor").innerHTML = Math.round((rune_armor + rune_quint_armor + item_armor + base_armor + ((level-1) * armor_per_level)).toFixed(2));
     }
 
     
@@ -936,8 +941,8 @@
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('gamedatabuffs').style.display = 'none';
-        document.getElementById('datadescription').style.display = 'none';
-        document.getElementById('datadescription').style.display = 'none';
+        //document.getElementById('datadescription').style.display = 'none';
+        //document.getElementById('datadescription').style.display = 'none';
         document.getElementById('gold1').style.display = 'none';
         document.getElementById('gold2').style.display = 'none';
         
@@ -953,7 +958,7 @@
         document.getElementById('gamedata').style.display = 'none';
         document.getElementById('gamedata2').style.display = 'none';
         document.getElementById('gamedatabuffs').style.display = 'none';
-        document.getElementById('datadescription').style.display = 'none';
+        //document.getElementById('datadescription').style.display = 'none';
         document.getElementById('gold1').style.display = 'inline-block';
         document.getElementById('gold2').style.display = 'none';
     }
@@ -968,7 +973,7 @@
         document.getElementById('gamedata').style.display = 'inline-block';
         document.getElementById('gamedata2').style.display = 'inline-block';
         document.getElementById('gamedatabuffs').style.display = 'inline-block';
-        document.getElementById('datadescription').style.display = 'inline-block';
+        //document.getElementById('datadescription').style.display = 'inline-block';
         document.getElementById('gold1').style.display = 'none';
         document.getElementById('gold2').style.display = 'inline-block';
     }
@@ -1534,8 +1539,9 @@
                         } else if(all_runes[i].parentElement.parentElement.id === 'critChanceMarks'){
                             rune_crit = rune_amount * json.data[mark_critchance].stats.FlatCritChanceMod * 100;
                         } else if(all_runes[i].parentElement.parentElement.id === 'hybridPenMarks'){
-                            rune_magpen = rune_amount * json.data[mark_hypen].stats.rFlatMagicPenetrationMod;
-                            rune_armorgpen = rune_amount * json.data[mark_hypen].stats.FlatArmorPenetrationMod;
+                            rune_hy_magpen = rune_amount * json.data[mark_hypen].stats.rFlatMagicPenetrationMod;
+                            rune_hy_armorpen = rune_amount * json.data[mark_hypen].stats.rFlatArmorPenetrationMod;
+                            console.log(rune_magpen, rune_armorpen);
                         } else if(all_runes[i].parentElement.parentElement.id === 'magicPenMarks'){
                             rune_magpen = rune_amount * json.data[mark_magpen].stats.rFlatMagicPenetrationMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'armorSeals'){
@@ -1549,7 +1555,7 @@
                         } else if(all_runes[i].parentElement.parentElement.id === 'manaRegenSeals'){
                             rune_manareg = rune_amount * json.data[seal_manaregen].stats.FlatMPRegenMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'percentHealthSeals'){
-                            rune_healthpercent = rune_amount * json.data[seal_percenthealth].stats.PercentHPPoolMod;
+                            rune_percenthealth = rune_amount * json.data[seal_percenthealth].stats.PercentHPPoolMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'abilityPowerGlyphs'){
                             rune_ap = rune_amount * json.data[glyph_ap].stats.FlatMagicDamageMod;
                         } else if(all_runes[i].parentElement.parentElement.id === 'cooldownReductionGlyphs'){

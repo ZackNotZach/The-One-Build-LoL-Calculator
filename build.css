@@ -38,7 +38,7 @@ input:focus{
 div.divider{
 	border-left: 3px solid white;
 	border-right: 3px solid white;
-    height: 550px;
+    height: 560px;
 }
 
 /*Middle Bar Welcome*/
@@ -338,7 +338,7 @@ input.gamedatainput{
     display: none;
     color: white;
     font-family: Sorry Not Sorry;
-    font-size: 32px;
+    font-size: 32px; 
     float: left;
     position: absolute;
     padding-left: 10px;
